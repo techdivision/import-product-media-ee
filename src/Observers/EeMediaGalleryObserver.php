@@ -11,74 +11,39 @@
  *
  * PHP version 5
  *
- * @author    Tim Wagner <tw@appserver.io>
- * @copyright 2015 TechDivision GmbH <info@appserver.io>
+ * @author    Tim Wagner <t.wagner@techdivision.com>
+ * @copyright 2016 TechDivision GmbH <info@techdivision.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
- * @link      https://github.com/wagnert/csv-import
- * @link      http://www.appserver.io
+ * @link      https://github.com/techdivision/import-product-media-ee
+ * @link      http://www.techdivision.com
  */
 
 namespace TechDivision\Import\Product\Media\Ee\Observers;
 
-use TechDivision\Import\Product\Media\Utils\ColumnKeys;
 use TechDivision\Import\Product\Media\Observers\MediaGalleryObserver;
 
 /**
  * A SLSB that handles the process to import product media.
  *
- * @author    Tim Wagner <tw@appserver.io>
- * @copyright 2015 TechDivision GmbH <info@appserver.io>
+ * @author    Tim Wagner <t.wagner@techdivision.com>
+ * @copyright 2016 TechDivision GmbH <info@techdivision.com>
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
- * @link      https://github.com/wagnert/csv-import
- * @link      http://www.appserver.io
+ * @link      https://github.com/techdivision/import-product-media-ee
+ * @link      http://www.techdivision.com
  */
 class EeMediaGalleryObserver extends MediaGalleryObserver
 {
 
     /**
-     * {@inheritDoc}
-     * @see \Importer\Csv\Actions\Listeners\Row\ListenerInterface::handle()
+     * Map's the passed SKU of the parent product to it's PK.
+     *
+     * @param string $parentSku The SKU of the parent product
+     *
+     * @return integer The primary key used to create relations
      */
-    public function handle(array $row)
+    public function mapParentSku($parentSku)
     {
-
-        // load the header information
-        $headers = $this->getHeaders();
-
-        // query whether or not, the image changed
-        if ($this->isParentImage($row[$headers[ColumnKeys::IMAGE_PATH]])) {
-            return $row;
-        }
-
-        // load the product SKU
-        $parentSku = $row[$headers[ColumnKeys::IMAGE_PARENT_SKU]];
-
-        // load parent/option ID
-        $parentId = $this->mapSkuToRowId($parentSku);
-
-        // reset the position counter for the product media gallery value
-        $this->resetPositionCounter();
-
-        // preserve the parent ID
-        $this->setParentId($parentId);
-
-        // initialize the gallery data
-        $disabled = 0;
-        $attributeId = 90;
-        $mediaType = 'image';
-        $image = $row[$headers[ColumnKeys::IMAGE_PATH_NEW]];
-
-        // persist the product media gallery data
-        $valueId = $this->persistProductMediaGallery(array($attributeId, $image, $mediaType, $disabled));
-
-        // persist the product media gallery to entity data
-        $this->persistProductMediaGalleryValueToEntity(array($valueId, $parentId));
-
-        // temporarily persist the value ID
-        $this->setParentValueId($valueId);
-
-        // returns the row
-        return $row;
+        return $this->mapSkuToRowId($parentSku);
     }
 
     /**
