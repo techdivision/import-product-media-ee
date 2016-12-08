@@ -18,7 +18,7 @@
  * @link      http://www.appserver.io
  */
 
-namespace TechDivision\Import\Product\Bundle\Ee\Subjects;
+namespace TechDivision\Import\Product\Media\Ee\Subjects;
 
 use TechDivision\Import\Product\Media\Subjects\MediaSubject;
 
