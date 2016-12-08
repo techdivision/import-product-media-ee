@@ -20,6 +20,7 @@
 
 namespace TechDivision\Import\Product\Media\Ee\Subjects;
 
+use TechDivision\Import\Utils\RegistryKeys;
 use TechDivision\Import\Product\Media\Subjects\MediaSubject;
 
 /**
@@ -57,7 +58,7 @@ class EeMediaSubject extends MediaSubject
         $status = $registryProcessor->getAttribute($this->serial);
 
         // load the attribute set we've prepared intially
-        $this->skuRowIdMapping = $status['skuRowIdMapping'];
+        $this->skuRowIdMapping = $status[RegistryKeys::SKU_ROW_ID_MAPPING];
 
         // prepare the callbacks
         parent::setUp();
