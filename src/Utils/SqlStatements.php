@@ -52,6 +52,22 @@ class SqlStatements extends FallbackStatements
     }
 
     /**
+     * The SQL statement to create a new product media gallery value entry.
+     *
+     * @var string
+     */
+    const CREATE_PRODUCT_MEDIA_GALLERY_VALUE = 'INSERT
+                                                  INTO catalog_product_entity_media_gallery_value (
+                                                           value_id,
+                                                           store_id,
+                                                           row_id,
+                                                           label,
+                                                           position,
+                                                           disabled
+                                                       )
+                                                VALUES (?, ?, ?, ?, ?, ?)';
+
+    /**
      * The SQL statement to create a new product media gallery value to entity entry.
      *
      * @var string
