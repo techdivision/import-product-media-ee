@@ -23,7 +23,7 @@ namespace TechDivision\Import\Product\Media\Ee\Observers;
 use TechDivision\Import\Product\Media\Observers\MediaGalleryValueObserver;
 
 /**
- * A SLSB that handles the process to import product media.
+ * Observer that provides extended mapping functionality to map a SKU to a row ID (EE Feature).
  *
  * @author    Tim Wagner <t.wagner@techdivision.com>
  * @copyright 2016 TechDivision GmbH <info@techdivision.com>

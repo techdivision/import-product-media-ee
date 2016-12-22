@@ -24,7 +24,7 @@ use TechDivision\Import\Utils\RegistryKeys;
 use TechDivision\Import\Product\Media\Subjects\MediaSubject;
 
 /**
- * A SLSB that handles the process to import product variants.
+ * A subject that handles the process to import product media.
  *
  * @author    Tim Wagner <t.wagner@techdivision.com>
  * @copyright 2016 TechDivision GmbH <info@techdivision.com>
@@ -51,17 +51,17 @@ class EeMediaSubject extends MediaSubject
     public function setUp()
     {
 
+        // invoke the parent method
+        parent::setUp();
+
         // load the entity manager and the registry processor
         $registryProcessor = $this->getRegistryProcessor();
 
         // load the status of the actual import process
-        $status = $registryProcessor->getAttribute($this->serial);
+        $status = $registryProcessor->getAttribute($this->getSerial());
 
         // load the attribute set we've prepared intially
         $this->skuRowIdMapping = $status[RegistryKeys::SKU_ROW_ID_MAPPING];
-
-        // prepare the callbacks
-        parent::setUp();
     }
 
     /**
