@@ -23,7 +23,7 @@ namespace TechDivision\Import\Product\Media\Ee\Utils;
 use TechDivision\Import\Product\Media\Utils\SqlStatements as FallbackStatements;
 
 /**
- * A SSB providing process registry functionality.
+ * Utility class with the SQL statements to use.
  *
  * @author    Tim Wagner <t.wagner@techdivision.com>
  * @copyright 2016 TechDivision GmbH <info@techdivision.com>
@@ -33,23 +33,6 @@ use TechDivision\Import\Product\Media\Utils\SqlStatements as FallbackStatements;
  */
 class SqlStatements extends FallbackStatements
 {
-
-    /**
-     * This is a utility class, so protect it against direct
-     * instantiation.
-     */
-    private function __construct()
-    {
-    }
-
-    /**
-     * This is a utility class, so protect it against cloning.
-     *
-     * @return void
-     */
-    private function __clone()
-    {
-    }
 
     /**
      * The SQL statement to create a new product media gallery value entry.
