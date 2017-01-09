@@ -20,8 +20,6 @@
 
 namespace TechDivision\Import\Product\Media\Ee\Utils;
 
-use TechDivision\Import\Product\Media\Utils\SqlStatements as FallbackStatements;
-
 /**
  * Utility class with the SQL statements to use.
  *
@@ -31,8 +29,29 @@ use TechDivision\Import\Product\Media\Utils\SqlStatements as FallbackStatements;
  * @link      https://github.com/techdivision/import-product-media-ee
  * @link      http://www.techdivision.com
  */
-class SqlStatements extends FallbackStatements
+class SqlStatements extends \TechDivision\Import\Product\Media\Utils\SqlStatements
 {
+
+    /**
+     * The SQL statement to load an existing product media gallery by value/store/entity ID.
+     *
+     * @var string
+     */
+    const PRODUCT_MEDIA_GALLERY_VALUE = 'SELECT *
+                                           FROM catalog_product_entity_media_gallery_value
+                                          WHERE value_id = :value_id
+                                            AND store_id = :store_id
+                                            AND row_id = :row_id';
+
+    /**
+     * The SQL statement to load an existing product media gallery value to entity by value/entity ID.
+     *
+     * @var string
+     */
+    const PRODUCT_MEDIA_GALLERY_VALUE_TO_ENTITY = 'SELECT *
+                                                     FROM catalog_product_entity_media_gallery_value_to_entity
+                                                    WHERE value_id = :value_id
+                                                      AND row_id = :row_id';
 
     /**
      * The SQL statement to create a new product media gallery value entry.
@@ -48,7 +67,26 @@ class SqlStatements extends FallbackStatements
                                                            position,
                                                            disabled
                                                        )
-                                                VALUES (?, ?, ?, ?, ?, ?)';
+                                                VALUES (:value_id,
+                                                        :store_id,
+                                                        :row_id,
+                                                        :label,
+                                                        :position,
+                                                        :disabled)';
+
+    /**
+     * The SQL statement to update an existing product media gallery value entry.
+     *
+     * @var string
+     */
+    const UPDATE_PRODUCT_MEDIA_GALLERY_VALUE = 'UPDATE catalog_product_entity_media_gallery_value
+                                                   SET value_id = :value_id,
+                                                       store_id = :store_id,
+                                                       row_id = :row_id,
+                                                       label = :label,
+                                                       position = :position,
+                                                       disabled = :disabled
+                                                 WHERE record_id = :record_id';
 
     /**
      * The SQL statement to create a new product media gallery value to entity entry.
@@ -57,8 +95,9 @@ class SqlStatements extends FallbackStatements
      */
     const CREATE_PRODUCT_MEDIA_GALLERY_VALUE_TO_ENTITY = 'INSERT
                                                             INTO catalog_product_entity_media_gallery_value_to_entity (
-                                                                   value_id,
-                                                                   row_id
+                                                                    value_id,
+                                                                    row_id
                                                                  )
-                                                          VALUES (?, ?)';
+                                                          VALUES (:value_id,
+                                                                  :row_id)';
 }
