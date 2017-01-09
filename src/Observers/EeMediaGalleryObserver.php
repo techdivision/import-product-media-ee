@@ -21,6 +21,7 @@
 namespace TechDivision\Import\Product\Media\Ee\Observers;
 
 use TechDivision\Import\Product\Media\Observers\MediaGalleryObserver;
+use TechDivision\Import\Product\Media\Ee\Utils\MemberNames;
 
 /**
  * Observer that provides extended mapping functionality to map a SKU to a row ID (EE Feature).
@@ -35,13 +36,30 @@ class EeMediaGalleryObserver extends MediaGalleryObserver
 {
 
     /**
+     * Prepare the product media gallery value to entity that has to be persisted.
+     *
+     * @return array The prepared product media gallery value to entity attributes
+     */
+    protected function prepareProductMediaGalleryValueToEntityAttributes()
+    {
+
+        // initialize and return the entity
+        return $this->initializeEntity(
+            array(
+                MemberNames::VALUE_ID  => $this->valueId,
+                MemberNames::ROW_ID    => $this->parentId
+            )
+        );
+    }
+
+    /**
      * Map's the passed SKU of the parent product to it's PK.
      *
      * @param string $parentSku The SKU of the parent product
      *
      * @return integer The primary key used to create relations
      */
-    public function mapParentSku($parentSku)
+    protected function mapParentSku($parentSku)
     {
         return $this->mapSkuToRowId($parentSku);
     }
@@ -54,7 +72,7 @@ class EeMediaGalleryObserver extends MediaGalleryObserver
      * @return integer The mapped row ID
      * @throws \Exception Is thrown if the SKU is not mapped yet
      */
-    public function mapSkuToRowId($sku)
+    protected function mapSkuToRowId($sku)
     {
         return $this->getSubject()->mapSkuToRowId($sku);
     }

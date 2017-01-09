@@ -20,6 +20,9 @@
 
 namespace TechDivision\Import\Product\Media\Ee\Observers;
 
+use TechDivision\Import\Utils\StoreViewCodes;
+use TechDivision\Import\Product\Media\Utils\ColumnKeys;
+use TechDivision\Import\Product\Media\Ee\Utils\MemberNames;
 use TechDivision\Import\Product\Media\Observers\MediaGalleryValueObserver;
 
 /**
@@ -35,13 +38,47 @@ class EeMediaGalleryValueObserver extends MediaGalleryValueObserver
 {
 
     /**
+     * Prepare the product media gallery value that has to be persisted.
+     *
+     * @return array The prepared product media gallery value attributes
+     */
+    protected function prepareAttributes()
+    {
+
+        // load the product SKU and map it the entity ID
+        $parentId = $this->getValue(ColumnKeys::IMAGE_PARENT_SKU, null, array($this, 'mapParentSku'));
+
+        // load the store ID
+        $storeId = $this->getRowStoreId(StoreViewCodes::ADMIN);
+
+        // load the value ID and the position counter
+        $valueId = $this->getParentValueId();
+        $position = $this->raisePositionCounter();
+
+        // load the image label
+        $imageLabel = $this->getValue(ColumnKeys::IMAGE_LABEL);
+
+        // prepare the media gallery value
+        return $this->initializeEntity(
+            array(
+                MemberNames::VALUE_ID    => $valueId,
+                MemberNames::STORE_ID    => $storeId,
+                MemberNames::ROW_ID      => $parentId,
+                MemberNames::LABEL       => $imageLabel,
+                MemberNames::POSITION    => $position,
+                MemberNames::DISABLED    => 0
+            )
+        );
+    }
+
+    /**
      * Map's the passed SKU of the parent product to it's PK.
      *
      * @param string $parentSku The SKU of the parent product
      *
      * @return integer The primary key used to create relations
      */
-    public function mapParentSku($parentSku)
+    protected function mapParentSku($parentSku)
     {
         return $this->mapSkuToRowId($parentSku);
     }
@@ -54,7 +91,7 @@ class EeMediaGalleryValueObserver extends MediaGalleryValueObserver
      * @return integer The mapped row ID
      * @throws \Exception Is thrown if the SKU is not mapped yet
      */
-    public function mapSkuToRowId($sku)
+    protected function mapSkuToRowId($sku)
     {
         return $this->getSubject()->mapSkuToRowId($sku);
     }
