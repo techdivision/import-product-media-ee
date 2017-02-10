@@ -21,7 +21,6 @@
 namespace TechDivision\Import\Product\Media\Ee\Observers;
 
 use TechDivision\Import\Product\Media\Ee\Utils\MemberNames;
-use TechDivision\Import\Product\Media\Observers\MediaGalleryValueUpdateObserver;
 
 /**
  * Observer that provides extended mapping functionality to map a SKU to a row ID (EE Feature).
