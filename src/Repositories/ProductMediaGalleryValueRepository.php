@@ -20,7 +20,6 @@
 
 namespace TechDivision\Import\Product\Media\Ee\Repositories;
 
-use TechDivision\Import\Repositories\AbstractRepository;
 use TechDivision\Import\Product\Media\Ee\Utils\MemberNames;
 
 /**
@@ -32,7 +31,7 @@ use TechDivision\Import\Product\Media\Ee\Utils\MemberNames;
  * @link      https://github.com/techdivision/import-product-media-ee
  * @link      http://www.techdivision.com
  */
-class ProductMediaGalleryValueRepository extends AbstractRepository
+class ProductMediaGalleryValueRepository extends \TechDivision\Import\Product\Media\Repositories\ProductMediaGalleryValueRepository
 {
 
     /**
