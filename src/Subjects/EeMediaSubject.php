@@ -60,7 +60,7 @@ class EeMediaSubject extends MediaSubject
         $registryProcessor = $this->getRegistryProcessor();
 
         // load the status of the actual import process
-        $status = $registryProcessor->getAttribute($this->getSerial());
+        $status = $registryProcessor->getAttribute($serial);
 
         // load the attribute set we've prepared intially
         $this->skuRowIdMapping = $status[RegistryKeys::SKU_ROW_ID_MAPPING];
