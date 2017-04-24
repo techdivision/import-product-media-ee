@@ -22,6 +22,7 @@ namespace TechDivision\Import\Product\Media\Ee\Subjects;
 
 use TechDivision\Import\Utils\RegistryKeys;
 use TechDivision\Import\Product\Media\Utils\ConfigurationKeys;
+use TechDivision\Import\Utils\EntityTypeCodes;
 
 /**
  * Test class for the media subject implementation for th Magento 2 EE.
@@ -132,7 +133,6 @@ class EeMediaSubjectTest extends \PHPUnit_Framework_TestCase
             RegistryKeys::SKU_ROW_ID_MAPPING => array($sku = 'TEST-01' => $rowId = 1000),
             RegistryKeys::SKU_ENTITY_ID_MAPPING => array(),
             RegistryKeys::GLOBAL_DATA => array(
-                RegistryKeys::EAV_USER_DEFINED_ATTRIBUTES => array('catalog_product' => array()),
                 RegistryKeys::SKU_ENTITY_ID_MAPPING => array(),
                 RegistryKeys::ATTRIBUTE_SETS => array(),
                 RegistryKeys::STORE_WEBSITES => array(),
@@ -145,6 +145,9 @@ class EeMediaSubjectTest extends \PHPUnit_Framework_TestCase
                 RegistryKeys::ROOT_CATEGORIES => array(),
                 RegistryKeys::DEFAULT_STORE => array(),
                 RegistryKeys::CORE_CONFIG_DATA => array(),
+                RegistryKeys::EAV_USER_DEFINED_ATTRIBUTES => array(
+                    EntityTypeCodes::CATALOG_PRODUCT => array()
+                )
             )
         );
 
@@ -152,10 +155,11 @@ class EeMediaSubjectTest extends \PHPUnit_Framework_TestCase
         $this->subject->getRegistryProcessor()
                       ->expects($this->any())
                       ->method('getAttribute')
+                      ->with($serial = uniqid())
                       ->willReturn($status);
 
         // inject and set-up the processor
-        $this->subject->setUp();
+        $this->subject->setUp($serial);
 
         // test the mapSkuToRowId() method
         $this->assertSame($rowId, $this->subject->mapSkuToRowId($sku));
