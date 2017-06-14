@@ -53,7 +53,8 @@ class ProductMediaGalleryValueToEntityRepository extends \TechDivision\Import\Pr
         $utilityClassName = $this->getUtilityClassName();
 
         // initialize the prepared statements
-        $this->productMediaGalleryValueToEntityStmt = $this->getConnection()->prepare($utilityClassName::PRODUCT_MEDIA_GALLERY_VALUE_TO_ENTITY);
+        $this->productMediaGalleryValueToEntityStmt =
+            $this->getConnection()->prepare($this->getUtilityClass()->find($utilityClassName::PRODUCT_MEDIA_GALLERY_VALUE_TO_ENTITY));
     }
 
     /**

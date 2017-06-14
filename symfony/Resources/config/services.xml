@@ -3,20 +3,18 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="import_product_media.utility.class.name">TechDivision\Import\Product\Media\Ee\Utils\SqlStatements</parameter>
-        <parameter key="import_product_media_ee.utility.class.name">TechDivision\Import\Product\Media\Ee\Utils\SqlStatements</parameter>
-    </parameters>
-
     <services>
+
+        <service id="import_product_media.utility.class.name" class="TechDivision\Import\Product\Media\Ee\Utils\SqlStatements"/>
+        <service id="import_product_media_ee.utility.class.name" class="TechDivision\Import\Product\Media\Ee\Utils\SqlStatements"/>
 
         <service id="import_product_media_ee.repository.product.media.gallery.value" class="TechDivision\Import\Product\Media\Ee\Repositories\ProductMediaGalleryValueRepository">
             <argument type="service" id="connection"/>
-            <argument>%import_product_media_ee.utility.class.name%</argument>
+            <argument type="service" id="import_product_media_ee.utility.class.name"/>
         </service>
         <service id="import_product_media_ee.repository.product.media.gallery.value.to.entity" class="TechDivision\Import\Product\Media\Ee\Repositories\ProductMediaGalleryValueToEntityRepository">
             <argument type="service" id="connection"/>
-            <argument>%import_product_media_ee.utility.class.name%</argument>
+            <argument type="service" id="import_product_media_ee.utility.class.name"/>
         </service>
 
         <service id="import_product_media_ee.processor.product.media" class="TechDivision\Import\Product\Media\Ee\Services\EeProductMediaProcessor">
