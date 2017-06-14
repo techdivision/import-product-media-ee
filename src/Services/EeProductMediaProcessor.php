@@ -20,6 +20,7 @@
 
 namespace TechDivision\Import\Product\Media\Ee\Services;
 
+use TechDivision\Import\Connection\ConnectionInterface;
 use TechDivision\Import\Product\Media\Services\ProductMediaProcessor;
 use TechDivision\Import\Product\Media\Repositories\ProductMediaGalleryRepository;
 use TechDivision\Import\Product\Media\Actions\ProductMediaGalleryValueToEntityAction;
@@ -44,7 +45,7 @@ class EeProductMediaProcessor extends ProductMediaProcessor implements EeProduct
     /**
      * Initialize the processor with the necessary assembler and repository instances.
      *
-     * @param \PDO                                                                                          $connection                                 The PDO connection to use
+     * @param \TechDivision\Import\Connection\ConnectionInterface                                           $connection                                 The connection to use
      * @param \TechDivision\Import\Product\Media\Repositories\ProductMediaGalleryRepository                 $productMediaGalleryRepository              The product media gallery repository to use
      * @param \TechDivision\Import\Product\Media\Ee\Repositories\ProductMediaGalleryValueRepository         $productMediaGalleryValueRepository         The product media gallery value repository to use
      * @param \TechDivision\Import\Product\Media\Ee\Repositories\ProductMediaGalleryValueToEntityRepository $productMediaGalleryValueToEntityRepository The product media gallery value to entity repository to use
@@ -54,7 +55,7 @@ class EeProductMediaProcessor extends ProductMediaProcessor implements EeProduct
      * @param \TechDivision\Import\Product\Media\Actions\ProductMediaGalleryVideoAction                     $productMediaGalleryValueVideoAction        The product media gallery value video action to use
      */
     public function __construct(
-        \PDO $connection,
+        ConnectionInterface $connection,
         ProductMediaGalleryRepository $productMediaGalleryRepository,
         ProductMediaGalleryValueRepository $productMediaGalleryValueRepository,
         ProductMediaGalleryValueToEntityRepository $productMediaGalleryValueToEntityRepository,
