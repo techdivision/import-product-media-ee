@@ -101,7 +101,6 @@ class EeMediaSubjectTest extends \PHPUnit_Framework_TestCase
 
         // create the subject to be tested
         $this->subject = new EeMediaSubject(
-            $mockConfiguration,
             $mockRegistryProcessor,
             $mockGenerator,
             array(),
@@ -116,7 +115,8 @@ class EeMediaSubjectTest extends \PHPUnit_Framework_TestCase
                        ->method('has')
                        ->willReturn(true);
 
-        // mock the filesystem
+        // mock the configuration and the filesystem
+        $this->subject->setConfiguration($mockConfiguration);
         $this->subject->setFilesystem($mockFilesystem);
     }
 

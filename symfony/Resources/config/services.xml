@@ -33,10 +33,7 @@
         <service id="import_product_media_ee.media.gallery.value" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryValueObserver"/>
         <service id="import_product_media_ee.media.gallery.value.update" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryValueUpdateObserver"/>
 
-        <service id="configuration.import_product_media_ee.subject.media" synthetic="true" />
-
         <service id="import_product_media_ee.subject.media" class="TechDivision\Import\Product\Media\Ee\Subjects\EeMediaSubject" shared="false">
-            <argument type="service" id="configuration.import_product_media_ee.subject.media"/>
             <argument type="service" id="import.processor.registry"/>
             <argument type="service" id="import.generator.core.config.data.uid"/>
             <argument type="service" id="loggers"/>
