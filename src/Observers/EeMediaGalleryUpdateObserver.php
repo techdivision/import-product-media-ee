@@ -67,6 +67,6 @@ class EeMediaGalleryUpdateObserver extends EeMediaGalleryObserver
      */
     protected function loadProductMediaGalleryValueToEntityByValueIdAndRowId($valueId, $rowId)
     {
-        return $this->getSubject()->loadProductMediaGalleryValueToEntityByValueIdAndRowId($valueId, $rowId);
+        return $this->getProductMediaProcessor()->loadProductMediaGalleryValueToEntityByValueIdAndRowId($valueId, $rowId);
     }
 }
