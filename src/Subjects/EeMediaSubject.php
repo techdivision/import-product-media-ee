@@ -67,33 +67,6 @@ class EeMediaSubject extends MediaSubject
     }
 
     /**
-     * Load's the product media gallery value with the passed value/store/row ID.
-     *
-     * @param integer $valueId The value ID of the product media gallery value to load
-     * @param string  $storeId The store ID of the product media gallery value to load
-     * @param string  $rowId   The row ID of the parent product of the product media gallery value to load
-     *
-     * @return array The product media gallery value
-     */
-    public function loadProductMediaGalleryValueByValueIdAndStoreIdAndRowId($valueId, $storeId, $rowId)
-    {
-        return $this->getProductProcessor()->loadProductMediaGalleryValueByValueIdAndStoreIdAndRowId($valueId, $storeId, $rowId);
-    }
-
-    /**
-     * Load's the product media gallery with the passed value/entity ID.
-     *
-     * @param integer $valueId The value ID of the product media gallery value to entity to load
-     * @param integer $rowId   The row ID of the product media gallery value to entity to load
-     *
-     * @return array The product media gallery
-     */
-    public function loadProductMediaGalleryValueToEntityByValueIdAndRowId($valueId, $rowId)
-    {
-        return $this->getProductProcessor()->loadProductMediaGalleryValueToEntityByValueIdAndRowId($valueId, $rowId);
-    }
-
-    /**
      * Return the row ID for the passed SKU.
      *
      * @param string $sku The SKU to return the row ID for
