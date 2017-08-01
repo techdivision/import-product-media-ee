@@ -71,13 +71,10 @@ class EeMediaSubjectTest extends \PHPUnit_Framework_TestCase
         $mockConfiguration->expects($this->any())
                           ->method('getConfiguration')
                           ->willReturn($mockMainConfiguration);
-        $mockConfiguration->expects($this->exactly(2))
+        $mockConfiguration->expects($this->once())
                           ->method('getParam')
-                          ->withConsecutive(
-                               array(ConfigurationKeys::COPY_IMAGES),
-                               array(ConfigurationKeys::ROOT_DIRECTORY)
-                           )
-                           ->willReturnOnConsecutiveCalls(false, __DIR__, __DIR__, __DIR__);
+                          ->with(ConfigurationKeys::COPY_IMAGES)
+                           ->willReturn(false);
         $mockConfiguration->expects($this->any())
                            ->method('getCallbacks')
                            ->willReturn(array());
@@ -109,16 +106,16 @@ class EeMediaSubjectTest extends \PHPUnit_Framework_TestCase
         );
 
         // mock the filesytem
-        $mockFilesystem = $this->getMockBuilder($filesystemInterface = '\League\Flysystem\FilesystemInterface')
+        $mockFilesystem = $this->getMockBuilder($filesystemInterface = 'TechDivision\Import\Adapter\FilesystemAdapterInterface')
                                ->setMethods(get_class_methods($filesystemInterface))
                                ->getMock();
         $mockFilesystem->expects($this->any())
-                       ->method('has')
+                       ->method('isFile')
                        ->willReturn(true);
 
         // mock the configuration and the filesystem
         $this->subject->setConfiguration($mockConfiguration);
-        $this->subject->setFilesystem($mockFilesystem);
+        $this->subject->setFilesystemAdapter($mockFilesystem);
     }
 
     /**
