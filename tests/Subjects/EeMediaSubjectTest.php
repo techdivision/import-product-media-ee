@@ -23,7 +23,6 @@ namespace TechDivision\Import\Product\Media\Ee\Subjects;
 use Doctrine\Common\Collections\ArrayCollection;
 use TechDivision\Import\Utils\RegistryKeys;
 use TechDivision\Import\Utils\EntityTypeCodes;
-use TechDivision\Import\Product\Media\Utils\ConfigurationKeys;
 
 /**
  * Test class for the media subject implementation for th Magento 2 EE.
