@@ -1,3 +1,13 @@
+# Version 1.0.0-beta8
+
+## Bugfixes
+
+* Fixed PHPUnit tests
+
+## Features
+
+* Add SQL statement to load media gallery data by product SKU
+
 # Version 1.0.0-beta7
 
 ## Bugfixes

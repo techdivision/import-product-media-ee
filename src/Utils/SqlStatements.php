@@ -115,6 +115,14 @@ class SqlStatements extends \TechDivision\Import\Product\Media\Utils\SqlStatemen
                      row_id)
              VALUES (:value_id,
                      :row_id)',
+        SqlStatements::PRODUCT_MEDIA_GALLERIES_BY_SKU =>
+            'SELECT t3.*
+               FROM catalog_product_entity t1,
+                    catalog_product_entity_media_gallery_value_to_entity t2,
+                    catalog_product_entity_media_gallery t3
+              WHERE t1.sku = :sku
+                AND t2.row_id = t1.row_id
+                AND t3.value_id = t2.value_id'
     );
 
     /**
