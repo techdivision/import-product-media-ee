@@ -71,10 +71,6 @@ class EeMediaSubjectTest extends \PHPUnit_Framework_TestCase
         $mockConfiguration->expects($this->any())
                           ->method('getConfiguration')
                           ->willReturn($mockMainConfiguration);
-        $mockConfiguration->expects($this->once())
-                          ->method('getParam')
-                          ->with(ConfigurationKeys::COPY_IMAGES)
-                           ->willReturn(false);
         $mockConfiguration->expects($this->any())
                            ->method('getCallbacks')
                            ->willReturn(array());
