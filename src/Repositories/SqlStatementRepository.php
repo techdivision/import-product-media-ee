@@ -20,6 +20,8 @@
 
 namespace TechDivision\Import\Product\Media\Ee\Repositories;
 
+use TechDivision\Import\Product\Media\Ee\Utils\SqlStatementKeys;
+
 /**
  * Repository class with the SQL statements to use.
  *
@@ -38,18 +40,18 @@ class SqlStatementRepository extends \TechDivision\Import\Product\Media\Reposito
      * @var array
      */
     private $statements = array(
-        SqlStatementRepository::PRODUCT_MEDIA_GALLERY_VALUE =>
+        SqlStatementKeys::PRODUCT_MEDIA_GALLERY_VALUE =>
             'SELECT *
                FROM catalog_product_entity_media_gallery_value
               WHERE value_id = :value_id
                 AND store_id = :store_id
                 AND row_id = :row_id',
-        SqlStatementRepository::PRODUCT_MEDIA_GALLERY_VALUE_TO_ENTITY =>
+        SqlStatementKeys::PRODUCT_MEDIA_GALLERY_VALUE_TO_ENTITY =>
             'SELECT *
                FROM catalog_product_entity_media_gallery_value_to_entity
               WHERE value_id = :value_id
                 AND row_id = :row_id',
-        SqlStatementRepository::CREATE_PRODUCT_MEDIA_GALLERY_VALUE =>
+        SqlStatementKeys::CREATE_PRODUCT_MEDIA_GALLERY_VALUE =>
             'INSERT
                INTO catalog_product_entity_media_gallery_value
                     (value_id,
@@ -64,7 +66,7 @@ class SqlStatementRepository extends \TechDivision\Import\Product\Media\Reposito
                      :label,
                      :position,
                      :disabled)',
-        SqlStatementRepository::UPDATE_PRODUCT_MEDIA_GALLERY_VALUE =>
+        SqlStatementKeys::UPDATE_PRODUCT_MEDIA_GALLERY_VALUE =>
             'UPDATE catalog_product_entity_media_gallery_value
                 SET value_id = :value_id,
                     store_id = :store_id,
@@ -73,14 +75,14 @@ class SqlStatementRepository extends \TechDivision\Import\Product\Media\Reposito
                     position = :position,
                     disabled = :disabled
               WHERE record_id = :record_id',
-        SqlStatementRepository::CREATE_PRODUCT_MEDIA_GALLERY_VALUE_TO_ENTITY =>
+        SqlStatementKeys::CREATE_PRODUCT_MEDIA_GALLERY_VALUE_TO_ENTITY =>
             'INSERT
                INTO catalog_product_entity_media_gallery_value_to_entity
                     (value_id,
                      row_id)
              VALUES (:value_id,
                      :row_id)',
-        SqlStatementRepository::PRODUCT_MEDIA_GALLERIES_BY_SKU =>
+        SqlStatementKeys::PRODUCT_MEDIA_GALLERIES_BY_SKU =>
             'SELECT t3.*
                FROM catalog_product_entity t1,
                     catalog_product_entity_media_gallery_value_to_entity t2,
