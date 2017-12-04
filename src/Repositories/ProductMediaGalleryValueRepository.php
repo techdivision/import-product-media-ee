@@ -21,6 +21,7 @@
 namespace TechDivision\Import\Product\Media\Ee\Repositories;
 
 use TechDivision\Import\Product\Media\Ee\Utils\MemberNames;
+use TechDivision\Import\Product\Media\Ee\Utils\SqlStatementKeys;
 
 /**
  * Repository implementation to load product media gallery value data.
@@ -49,12 +50,9 @@ class ProductMediaGalleryValueRepository extends \TechDivision\Import\Product\Me
     public function init()
     {
 
-        // load the utility class name
-        $utilityClassName = $this->getUtilityClassName();
-
         // initialize the prepared statements
         $this->productMediaGalleryValueStmt =
-            $this->getConnection()->prepare($this->getUtilityClass()->find($utilityClassName::PRODUCT_MEDIA_GALLERY_VALUE));
+            $this->getConnection()->prepare($this->loadStatement(SqlStatementKeys::PRODUCT_MEDIA_GALLERY_VALUE));
     }
 
     /**
