@@ -1,7 +1,7 @@
 <?php
 
 /**
- * TechDivision\Import\Product\Media\Ee\\Utils\SqlStatements
+ * TechDivision\Import\Product\Media\Ee\Repositories\SqlStatements
  *
  * NOTICE OF LICENSE
  *
@@ -18,10 +18,12 @@
  * @link      http://www.techdivision.com
  */
 
-namespace TechDivision\Import\Product\Media\Ee\Utils;
+namespace TechDivision\Import\Product\Media\Ee\Repositories;
+
+use TechDivision\Import\Product\Media\Ee\Utils\SqlStatementKeys;
 
 /**
- * Utility class with the SQL statements to use.
+ * Repository class with the SQL statements to use.
  *
  * @author    Tim Wagner <t.wagner@techdivision.com>
  * @copyright 2016 TechDivision GmbH <info@techdivision.com>
@@ -29,43 +31,8 @@ namespace TechDivision\Import\Product\Media\Ee\Utils;
  * @link      https://github.com/techdivision/import-product-media-ee
  * @link      http://www.techdivision.com
  */
-class SqlStatements extends \TechDivision\Import\Product\Media\Utils\SqlStatements
+class SqlStatementRepository extends \TechDivision\Import\Product\Media\Repositories\SqlStatementRepository
 {
-
-    /**
-     * The SQL statement to load an existing product media gallery by value/store/entity ID.
-     *
-     * @var string
-     */
-    const PRODUCT_MEDIA_GALLERY_VALUE = 'product_media_gallery_value';
-
-    /**
-     * The SQL statement to load an existing product media gallery value to entity by value/entity ID.
-     *
-     * @var string
-     */
-    const PRODUCT_MEDIA_GALLERY_VALUE_TO_ENTITY = 'product_media_gallery_value_to_entity';
-
-    /**
-     * The SQL statement to create a new product media gallery value entry.
-     *
-     * @var string
-     */
-    const CREATE_PRODUCT_MEDIA_GALLERY_VALUE = 'create.product_media_gallery_value';
-
-    /**
-     * The SQL statement to update an existing product media gallery value entry.
-     *
-     * @var string
-     */
-    const UPDATE_PRODUCT_MEDIA_GALLERY_VALUE = 'update.product_media_gallery_value';
-
-    /**
-     * The SQL statement to create a new product media gallery value to entity entry.
-     *
-     * @var string
-     */
-    const CREATE_PRODUCT_MEDIA_GALLERY_VALUE_TO_ENTITY = 'create.product_media_gallery_value_to_entity';
 
     /**
      * The SQL statements.
@@ -73,18 +40,18 @@ class SqlStatements extends \TechDivision\Import\Product\Media\Utils\SqlStatemen
      * @var array
      */
     private $statements = array(
-        SqlStatements::PRODUCT_MEDIA_GALLERY_VALUE =>
+        SqlStatementKeys::PRODUCT_MEDIA_GALLERY_VALUE =>
             'SELECT *
                FROM catalog_product_entity_media_gallery_value
               WHERE value_id = :value_id
                 AND store_id = :store_id
                 AND row_id = :row_id',
-        SqlStatements::PRODUCT_MEDIA_GALLERY_VALUE_TO_ENTITY =>
+        SqlStatementKeys::PRODUCT_MEDIA_GALLERY_VALUE_TO_ENTITY =>
             'SELECT *
                FROM catalog_product_entity_media_gallery_value_to_entity
               WHERE value_id = :value_id
                 AND row_id = :row_id',
-        SqlStatements::CREATE_PRODUCT_MEDIA_GALLERY_VALUE =>
+        SqlStatementKeys::CREATE_PRODUCT_MEDIA_GALLERY_VALUE =>
             'INSERT
                INTO catalog_product_entity_media_gallery_value
                     (value_id,
@@ -99,7 +66,7 @@ class SqlStatements extends \TechDivision\Import\Product\Media\Utils\SqlStatemen
                      :label,
                      :position,
                      :disabled)',
-        SqlStatements::UPDATE_PRODUCT_MEDIA_GALLERY_VALUE =>
+        SqlStatementKeys::UPDATE_PRODUCT_MEDIA_GALLERY_VALUE =>
             'UPDATE catalog_product_entity_media_gallery_value
                 SET value_id = :value_id,
                     store_id = :store_id,
@@ -108,14 +75,14 @@ class SqlStatements extends \TechDivision\Import\Product\Media\Utils\SqlStatemen
                     position = :position,
                     disabled = :disabled
               WHERE record_id = :record_id',
-        SqlStatements::CREATE_PRODUCT_MEDIA_GALLERY_VALUE_TO_ENTITY =>
+        SqlStatementKeys::CREATE_PRODUCT_MEDIA_GALLERY_VALUE_TO_ENTITY =>
             'INSERT
                INTO catalog_product_entity_media_gallery_value_to_entity
                     (value_id,
                      row_id)
              VALUES (:value_id,
                      :row_id)',
-        SqlStatements::PRODUCT_MEDIA_GALLERIES_BY_SKU =>
+        SqlStatementKeys::PRODUCT_MEDIA_GALLERIES_BY_SKU =>
             'SELECT t3.*
                FROM catalog_product_entity t1,
                     catalog_product_entity_media_gallery_value_to_entity t2,

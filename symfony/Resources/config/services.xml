@@ -5,16 +5,15 @@
 
     <services>
 
-        <service id="import_product_media.utility.class.name" class="TechDivision\Import\Product\Media\Ee\Utils\SqlStatements"/>
-        <service id="import_product_media_ee.utility.class.name" class="TechDivision\Import\Product\Media\Ee\Utils\SqlStatements"/>
-
+        <service id="import_product_media.repository.sql.statement" class="TechDivision\Import\Product\Media\Ee\Repositories\SqlStatementRepository"/>
+        <service id="import_product_media_ee.repository.sql.statement" class="TechDivision\Import\Product\Media\Ee\Repositories\SqlStatementRepository"/>
         <service id="import_product_media_ee.repository.product.media.gallery.value" class="TechDivision\Import\Product\Media\Ee\Repositories\ProductMediaGalleryValueRepository">
             <argument type="service" id="connection"/>
-            <argument type="service" id="import_product_media_ee.utility.class.name"/>
+            <argument type="service" id="import_product_media_ee.repository.sql.statement"/>
         </service>
         <service id="import_product_media_ee.repository.product.media.gallery.value.to.entity" class="TechDivision\Import\Product\Media\Ee\Repositories\ProductMediaGalleryValueToEntityRepository">
             <argument type="service" id="connection"/>
-            <argument type="service" id="import_product_media_ee.utility.class.name"/>
+            <argument type="service" id="import_product_media_ee.repository.sql.statement"/>
         </service>
 
         <service id="import_product_media_ee.processor.product.media" class="TechDivision\Import\Product\Media\Ee\Services\EeProductMediaProcessor">

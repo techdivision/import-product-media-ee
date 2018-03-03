@@ -82,6 +82,9 @@ class EeMediaSubjectTest extends \PHPUnit_Framework_TestCase
         $mockConfiguration->expects($this->any())
                            ->method('getImageTypes')
                            ->willReturn(array());
+        $mockConfiguration->expects($this->any())
+                          ->method('getFrontendInputCallbacks')
+                          ->willReturn(array());
 
         // create a mock registry processor
         $mockRegistryProcessor = $this->getMockBuilder('TechDivision\Import\Services\RegistryProcessorInterface')
