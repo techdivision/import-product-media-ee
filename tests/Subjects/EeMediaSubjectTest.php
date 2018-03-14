@@ -101,11 +101,17 @@ class EeMediaSubjectTest extends \PHPUnit_Framework_TestCase
             ->setMethods(get_class_methods('TechDivision\Import\Utils\Generators\GeneratorInterface'))
             ->getMock();
 
+        // mock the event emitter
+        $mockEmitter = $this->getMockBuilder('League\Event\EmitterInterface')
+                            ->setMethods(\get_class_methods('League\Event\EmitterInterface'))
+                            ->getMock();
+
         // create the subject to be tested
         $this->subject = new EeMediaSubject(
             $mockRegistryProcessor,
             $mockGenerator,
             new ArrayCollection(),
+            $mockEmitter,
             $mockProductMediaProcessor
         );
 
