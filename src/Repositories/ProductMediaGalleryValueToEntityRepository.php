@@ -24,7 +24,7 @@ use TechDivision\Import\Product\Media\Ee\Utils\MemberNames;
 use TechDivision\Import\Product\Media\Ee\Utils\SqlStatementKeys;
 
 /**
- * Repository implementation to load product media gallery value to entity data.
+ * Interface for repository implementations to load product media gallery value to entity data.
  *
  * @author    Tim Wagner <t.wagner@techdivision.com>
  * @copyright 2016 TechDivision GmbH <info@techdivision.com>
@@ -32,7 +32,7 @@ use TechDivision\Import\Product\Media\Ee\Utils\SqlStatementKeys;
  * @link      https://github.com/techdivision/import-product-media-ee
  * @link      http://www.techdivision.com
  */
-class ProductMediaGalleryValueToEntityRepository extends \TechDivision\Import\Product\Media\Repositories\ProductMediaGalleryValueToEntityRepository
+class ProductMediaGalleryValueToEntityRepository extends \TechDivision\Import\Product\Media\Repositories\ProductMediaGalleryValueToEntityRepository implements ProductMediaGalleryValueToEntityRepositoryInterface
 {
 
     /**
@@ -63,7 +63,7 @@ class ProductMediaGalleryValueToEntityRepository extends \TechDivision\Import\Pr
      *
      * @return array The product media gallery
      */
-    public function findOneByValueIdAndEntityId($valueId, $rowId)
+    public function findOneByValueIdAndRowId($valueId, $rowId)
     {
 
         // initialize the params

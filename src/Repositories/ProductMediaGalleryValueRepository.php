@@ -32,7 +32,7 @@ use TechDivision\Import\Product\Media\Ee\Utils\SqlStatementKeys;
  * @link      https://github.com/techdivision/import-product-media-ee
  * @link      http://www.techdivision.com
  */
-class ProductMediaGalleryValueRepository extends \TechDivision\Import\Product\Media\Repositories\ProductMediaGalleryValueRepository
+class ProductMediaGalleryValueRepository extends \TechDivision\Import\Product\Media\Repositories\ProductMediaGalleryValueRepository implements ProductMediaGalleryValueRepositoryInterface
 {
 
     /**
@@ -64,7 +64,7 @@ class ProductMediaGalleryValueRepository extends \TechDivision\Import\Product\Me
      *
      * @return array The product media gallery value
      */
-    public function findOneByValueIdAndStoreIdAndEntityId($valueId, $storeId, $rowId)
+    public function findOneByValueIdAndStoreIdAndRowId($valueId, $storeId, $rowId)
     {
 
         // initialize the params
