@@ -1,3 +1,13 @@
+# Version 6.0.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Switch to techdivision/import-product-ee 6.0.* and techdivision/import-product-media 6.0.* version as dependency
+
 # Version 5.0.0
 
 ## Bugfixes
@@ -6,7 +16,7 @@
 
 ## Features
 
-* Switch to latest techdivision/import-product-bundle + techdivision/import-ee 5.0.* version as dependency
+* Switch to latest techdivision/import-product-media + techdivision/import-ee 5.0.* version as dependency
 
 # Version 4.0.0
 
