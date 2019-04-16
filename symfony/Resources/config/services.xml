@@ -27,16 +27,24 @@
             <argument type="service" id="import_product_media.action.product.media.gallery.value.video"/>
         </service>
 
-        <service id="import_product_media_ee.media.gallery" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryObserver">
+        <!--
+         | DEPRECATED: These aliases are only for backwards compatibility, they will be removed with the next major release
+         |-->
+        <service id="import_product_media_ee.media.gallery" alias="import_product_media_ee.observer.media.gallery"/>
+        <service id="import_product_media_ee.media.gallery.update" alias="import_product_media_ee.observer.media.gallery.update"/>
+        <service id="import_product_media_ee.media.gallery.value" alias="import_product_media_ee.observer.media.gallery.value"/>
+        <service id="import_product_media_ee.media.gallery.value.update" alias="import_product_media_ee.observer.media.gallery.value.update"/>
+
+        <service id="import_product_media_ee.observer.media.gallery" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryObserver">
             <argument type="service" id="import_product_media_ee.processor.product.media"/>
         </service>
-        <service id="import_product_media_ee.media.gallery.update" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryUpdateObserver">
+        <service id="import_product_media_ee.observer.media.gallery.update" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryUpdateObserver">
             <argument type="service" id="import_product_media_ee.processor.product.media"/>
         </service>
-        <service id="import_product_media_ee.media.gallery.value" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryValueObserver">
+        <service id="import_product_media_ee.observer.media.gallery.value" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryValueObserver">
             <argument type="service" id="import_product_media_ee.processor.product.media"/>
         </service>
-        <service id="import_product_media_ee.media.gallery.value.update" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryValueUpdateObserver">
+        <service id="import_product_media_ee.observer.media.gallery.value.update" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryValueUpdateObserver">
             <argument type="service" id="import_product_media_ee.processor.product.media"/>
         </service>
 

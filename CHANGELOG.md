@@ -1,3 +1,14 @@
+# Version 8.0.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Replace DI specific ActionInterfaces with generic ActionInterface in EeProductMediaProcessor
+* Switch to techdivision/import-product-ee 8.0.* and techdivision/import-product-media 8.0.* version as dependency
+
 # Version 7.0.0
 
 ## Bugfixes
