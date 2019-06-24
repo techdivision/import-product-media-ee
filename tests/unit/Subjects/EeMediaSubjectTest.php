@@ -20,9 +20,10 @@
 
 namespace TechDivision\Import\Product\Media\Ee\Subjects;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use TechDivision\Import\Utils\CacheKeys;
 use TechDivision\Import\Utils\RegistryKeys;
 use TechDivision\Import\Utils\EntityTypeCodes;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Test class for the media subject implementation for th Magento 2 EE.
@@ -164,11 +165,11 @@ class EeMediaSubjectTest extends \PHPUnit_Framework_TestCase
         $this->subject->getRegistryProcessor()
                       ->expects($this->any())
                       ->method('getAttribute')
-                      ->with($serial = uniqid())
+                      ->with(CacheKeys::STATUS)
                       ->willReturn($status);
 
         // inject and set-up the processor
-        $this->subject->setUp($serial);
+        $this->subject->setUp(uniqid());
 
         // test the mapSkuToRowId() method
         $this->assertSame($rowId, $this->subject->mapSkuToRowId($sku));

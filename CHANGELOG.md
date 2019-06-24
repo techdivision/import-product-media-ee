@@ -1,3 +1,13 @@
+# Version 12.0.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Switch to techdivision/import-product-ee 12.* and techdivision/import-product-media 12.* version as dependency
+
 # Version 11.0.0
 
 ## Bugfixes
