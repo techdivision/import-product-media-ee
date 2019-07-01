@@ -35,6 +35,29 @@ class EeMediaGalleryUpdateObserver extends EeMediaGalleryObserver
 {
 
     /**
+     * Initialize the product media gallery with the passed attributes and returns an instance.
+     *
+     * @param array $attr The product media gallery attributes
+     *
+     * @return array The initialized product media gallery
+     */
+    protected function initializeProductMediaGallery(array $attr)
+    {
+
+        // load the value and the attribute ID
+        $value = $attr[MemberNames::VALUE];
+        $attributeId = $attr[MemberNames::ATTRIBUTE_ID];
+
+        // query whether the product media gallery entity already exists or not
+        if ($entity = $this->loadProductMediaGallery($attributeId, $value)) {
+            return $this->mergeEntity($entity, $attr);
+        }
+
+        // simply return the attributes
+        return $attr;
+    }
+
+    /**
      * Initialize the product media gallery value to entity with the passed attributes and returns an instance.
      *
      * @param array $attr The product media gallery value to entity attributes
@@ -55,6 +78,19 @@ class EeMediaGalleryUpdateObserver extends EeMediaGalleryObserver
 
         // simply return the attributes
         return $attr;
+    }
+
+    /**
+     * Load's the product media gallery with the passed attribute ID + value.
+     *
+     * @param integer $attributeId The attribute ID of the product media gallery to load
+     * @param string  $value       The value of the product media gallery to load
+     *
+     * @return array The product media gallery
+     */
+    protected function loadProductMediaGallery($attributeId, $value)
+    {
+        return $this->getProductMediaProcessor()->loadProductMediaGallery($attributeId, $value);
     }
 
     /**

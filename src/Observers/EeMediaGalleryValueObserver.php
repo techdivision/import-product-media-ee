@@ -58,6 +58,9 @@ class EeMediaGalleryValueObserver extends MediaGalleryValueObserver
         // load the image label
         $imageLabel = $this->getValue(ColumnKeys::IMAGE_LABEL);
 
+        // load the flag that decides whether or not an image should be hidden on product page
+        $hideFromProductPage = $this->getValue(ColumnKeys::HIDE_FROM_PRODUCT_PAGE);
+
         // prepare the media gallery value
         return $this->initializeEntity(
             array(
@@ -66,7 +69,7 @@ class EeMediaGalleryValueObserver extends MediaGalleryValueObserver
                 MemberNames::ROW_ID      => $parentId,
                 MemberNames::LABEL       => $imageLabel,
                 MemberNames::POSITION    => $position,
-                MemberNames::DISABLED    => 0
+                MemberNames::DISABLED    => $hideFromProductPage
             )
         );
     }
