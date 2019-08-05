@@ -1,3 +1,15 @@
+# Version 14.0.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Use trait instead of implementing duplicated code from CE media subject 
+* Move library specific DI identifiers from techdivision/import-product to thhis library
+* Switch to techdivision/import-product-ee 14.* and techdivision/import-product-media 15.* version as dependency
+
 # Version 13.0.0
 
 ## Bugfixes
