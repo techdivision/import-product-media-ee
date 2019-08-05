@@ -1,3 +1,13 @@
+# Version 15.0.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Switch to techdivision/import-product-ee 15.* and techdivision/import-product-media 16.* version as dependency
+
 # Version 14.0.0
 
 ## Bugfixes
