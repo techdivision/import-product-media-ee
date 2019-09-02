@@ -1,3 +1,13 @@
+# Version 17.0.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Switch to techdivision/import-product-ee 17.* and techdivision/import-product-media 18.* version as dependency
+
 # Version 16.0.0
 
 ## Bugfixes
