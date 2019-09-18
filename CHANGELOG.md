@@ -1,3 +1,14 @@
+# Version 18.0.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Add techdivision/import-cli-simple#216
+* Switch to techdivision/import-product-ee 18.* and techdivision/import-product-media 19.* version as dependency
+
 # Version 17.0.0
 
 ## Bugfixes
