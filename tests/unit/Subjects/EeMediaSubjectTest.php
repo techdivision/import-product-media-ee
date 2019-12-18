@@ -24,6 +24,10 @@ use TechDivision\Import\Utils\CacheKeys;
 use TechDivision\Import\Utils\RegistryKeys;
 use TechDivision\Import\Utils\EntityTypeCodes;
 use Doctrine\Common\Collections\ArrayCollection;
+use TechDivision\Import\Configuration\PluginConfigurationInterface;
+use TechDivision\Import\ConfigurationInterface;
+use TechDivision\Import\Configuration\SubjectConfigurationInterface;
+use TechDivision\Import\ExecutionContextInterface;
 
 /**
  * Test class for the media subject implementation for th Magento 2 EE.
@@ -54,38 +58,44 @@ class EeMediaSubjectTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
 
-        // load the mock main configuration
-        $mockMainConfiguration = $this->getMockBuilder($subjectInterface = 'TechDivision\Import\ConfigurationInterface')
-                                      ->setMethods(get_class_methods($subjectInterface))
-                                      ->getMock();
+        // mock the execution context
+        $mockExecutionContext = $this->getMockBuilder(ExecutionContextInterface::class)
+            ->setMethods(get_class_methods(ExecutionContextInterface::class))
+            ->getMock();
+        $mockExecutionContext->expects($this->any())
+            ->method('getEntityTypeCode')
+            ->willReturn(EntityTypeCodes::CATALOG_PRODUCT);
 
-        // set the installation directory
-        $mockMainConfiguration->expects($this->once())
-                              ->method('getEntityTypeCode')
-                              ->willReturn('catalog_product');
+        // mock the plugin configuration
+        $mockPluginConfiguration = $this->getMockBuilder(PluginConfigurationInterface::class)
+            ->setMethods(get_class_methods(PluginConfigurationInterface::class))
+            ->getMock();
+        $mockPluginConfiguration->expects($this->any())
+            ->method('getExecutionContext')
+            ->willReturn($mockExecutionContext);
 
         // load the mock configuration
-        $mockConfiguration = $this->getMockBuilder($subjectInterface = 'TechDivision\Import\Configuration\SubjectConfigurationInterface')
-                                  ->setMethods(get_class_methods($subjectInterface))
-                                  ->getMock();
+        $mockConfiguration = $this->getMockBuilder(SubjectConfigurationInterface::class)
+            ->setMethods(get_class_methods(SubjectConfigurationInterface::class))
+            ->getMock();
         $mockConfiguration->expects($this->any())
-                          ->method('getConfiguration')
-                          ->willReturn($mockMainConfiguration);
+            ->method('getPluginConfiguration')
+            ->willReturn($mockPluginConfiguration);
         $mockConfiguration->expects($this->any())
-                           ->method('getCallbacks')
-                           ->willReturn(array());
+            ->method('getCallbacks')
+            ->willReturn(array());
         $mockConfiguration->expects($this->any())
-                           ->method('getObservers')
-                           ->willReturn(array());
+            ->method('getObservers')
+            ->willReturn(array());
         $mockConfiguration->expects($this->any())
-                           ->method('getHeaderMappings')
-                           ->willReturn(array());
+            ->method('getHeaderMappings')
+            ->willReturn(array());
         $mockConfiguration->expects($this->any())
-                           ->method('getImageTypes')
-                           ->willReturn(array());
+            ->method('getImageTypes')
+            ->willReturn(array());
         $mockConfiguration->expects($this->any())
-                          ->method('getFrontendInputCallbacks')
-                          ->willReturn(array());
+            ->method('getFrontendInputCallbacks')
+            ->willReturn(array());
 
         // create a mock registry processor
         $mockRegistryProcessor = $this->getMockBuilder('TechDivision\Import\Services\RegistryProcessorInterface')
