@@ -24,10 +24,9 @@ use TechDivision\Import\Utils\CacheKeys;
 use TechDivision\Import\Utils\RegistryKeys;
 use TechDivision\Import\Utils\EntityTypeCodes;
 use Doctrine\Common\Collections\ArrayCollection;
-use TechDivision\Import\Configuration\PluginConfigurationInterface;
-use TechDivision\Import\ConfigurationInterface;
-use TechDivision\Import\Configuration\SubjectConfigurationInterface;
 use TechDivision\Import\ExecutionContextInterface;
+use TechDivision\Import\Configuration\PluginConfigurationInterface;
+use TechDivision\Import\Configuration\SubjectConfigurationInterface;
 
 /**
  * Test class for the media subject implementation for th Magento 2 EE.
