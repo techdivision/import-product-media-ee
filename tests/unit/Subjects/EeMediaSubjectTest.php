@@ -20,6 +20,7 @@
 
 namespace TechDivision\Import\Product\Media\Ee\Subjects;
 
+use PHPUnit\Framework\TestCase;
 use TechDivision\Import\Utils\CacheKeys;
 use TechDivision\Import\Utils\RegistryKeys;
 use TechDivision\Import\Utils\EntityTypeCodes;
@@ -37,7 +38,7 @@ use TechDivision\Import\Configuration\SubjectConfigurationInterface;
  * @link      https://github.com/techdivision/import-product-media-ee
  * @link      http://www.techdivision.com
  */
-class EeMediaSubjectTest extends \PHPUnit_Framework_TestCase
+class EeMediaSubjectTest extends TestCase
 {
 
     /**
@@ -52,7 +53,7 @@ class EeMediaSubjectTest extends \PHPUnit_Framework_TestCase
      * This method is called before a test is executed.
      *
      * @return void
-     * @see \PHPUnit_Framework_TestCase::setUp()
+     * @see \PHPUnit\Framework\TestCase::setUp()
      */
     protected function setUp()
     {
