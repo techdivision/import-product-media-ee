@@ -49,7 +49,6 @@ class EeProductMediaProcessor extends ProductMediaProcessor implements EeProduct
      * @param \TechDivision\Import\Actions\ActionInterface                                                           $productMediaGalleryAction                  The product media gallery action to use
      * @param \TechDivision\Import\Actions\ActionInterface                                                           $productMediaGalleryValueAction             The product media gallery value action to use
      * @param \TechDivision\Import\Actions\ActionInterface                                                           $productMediaGalleryValueToEntityAction     The product media gallery value to entity action to use
-     * @param \TechDivision\Import\Actions\ActionInterface                                                           $productMediaGalleryValueVideoAction        The product media gallery value video action to use
      */
     public function __construct(
         ConnectionInterface $connection,
@@ -58,8 +57,7 @@ class EeProductMediaProcessor extends ProductMediaProcessor implements EeProduct
         ProductMediaGalleryValueToEntityRepositoryInterface $productMediaGalleryValueToEntityRepository,
         ActionInterface $productMediaGalleryAction,
         ActionInterface $productMediaGalleryValueAction,
-        ActionInterface $productMediaGalleryValueToEntityAction,
-        ActionInterface $productMediaGalleryValueVideoAction
+        ActionInterface $productMediaGalleryValueToEntityAction
     ) {
         $this->setConnection($connection);
         $this->setProductMediaGalleryRepository($productMediaGalleryRepository);
@@ -68,7 +66,6 @@ class EeProductMediaProcessor extends ProductMediaProcessor implements EeProduct
         $this->setProductMediaGalleryAction($productMediaGalleryAction);
         $this->setProductMediaGalleryValueAction($productMediaGalleryValueAction);
         $this->setProductMediaGalleryValueToEntityAction($productMediaGalleryValueToEntityAction);
-        $this->setProductMediaGalleryValueVideoAction($productMediaGalleryValueVideoAction);
     }
 
     /**
