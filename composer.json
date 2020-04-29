@@ -7,6 +7,7 @@
         "techdivision/import": "16.x-dev as 15.2.1",
         "techdivision/import-ee": "15.x-dev as 14.0.1",
         "techdivision/import-product": "20.x-dev as 19.0.6",
+        "techdivision/import-product-ee": "20.x-dev as 19.0.3",
         "techdivision/import-product-media": "20.x-dev as 19.0.1"
     },
     "require-dev": {
