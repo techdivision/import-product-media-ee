@@ -1,3 +1,13 @@
+# Version 20.0.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Switch to techdivision/import-product-ee 20.* and techdivision/import-product-media 20.* version as dependency
+
 # Version 19.0.1
 
 ## Bugfixes
