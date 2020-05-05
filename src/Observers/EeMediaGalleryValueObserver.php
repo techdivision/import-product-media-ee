@@ -51,12 +51,17 @@ class EeMediaGalleryValueObserver extends MediaGalleryValueObserver
         // load the store ID
         $storeId = $this->getRowStoreId(StoreViewCodes::ADMIN);
 
-        // load the value ID and the position counter
+        // load the value ID
         $valueId = $this->getParentValueId();
-        $position = $this->raisePositionCounter();
 
         // load the image label
         $imageLabel = $this->getValue(ColumnKeys::IMAGE_LABEL);
+
+        // load the position
+        $position = $this->getValue(ColumnKeys::IMAGE_POSITION);
+        if ($position == 0) {
+            $position = $this->raisePositionCounter();
+        }
 
         // load the flag that decides whether or not an image should be hidden on product page
         $hideFromProductPage = $this->getValue(ColumnKeys::HIDE_FROM_PRODUCT_PAGE);
