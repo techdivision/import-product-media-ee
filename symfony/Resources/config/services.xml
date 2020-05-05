@@ -28,6 +28,7 @@
             <argument type="service" id="import_product_media.action.product.media.gallery"/>
             <argument type="service" id="import_product_media.action.product.media.gallery.value"/>
             <argument type="service" id="import_product_media.action.product.media.gallery.value.to.entity"/>
+            <argument type="service" id="import_product_media.loader.raw.entity"/>
         </service>
 
         <!--
