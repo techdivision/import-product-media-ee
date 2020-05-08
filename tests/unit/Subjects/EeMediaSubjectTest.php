@@ -28,6 +28,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use TechDivision\Import\ExecutionContextInterface;
 use TechDivision\Import\Configuration\PluginConfigurationInterface;
 use TechDivision\Import\Configuration\SubjectConfigurationInterface;
+use TechDivision\Import\Loaders\LoaderInterface;
 
 /**
  * Test class for the media subject implementation for th Magento 2 EE.
@@ -102,11 +103,6 @@ class EeMediaSubjectTest extends TestCase
             ->setMethods(get_class_methods('TechDivision\Import\Services\RegistryProcessorInterface'))
             ->getMock();
 
-        // create a mock product media processor
-        $mockProductMediaProcessor = $this->getMockBuilder('TechDivision\Import\Product\Services\ProductProcessorInterface')
-            ->setMethods(get_class_methods('TechDivision\Import\Product\Services\ProductProcessorInterface'))
-            ->getMock();
-
         // create a generator
         $mockGenerator = $this->getMockBuilder('TechDivision\Import\Utils\Generators\GeneratorInterface')
             ->setMethods(get_class_methods('TechDivision\Import\Utils\Generators\GeneratorInterface'))
@@ -117,13 +113,16 @@ class EeMediaSubjectTest extends TestCase
                             ->setMethods(\get_class_methods('League\Event\EmitterInterface'))
                             ->getMock();
 
+        // create a mock loader instance
+        $mockLoader = $this->getMockBuilder(LoaderInterface::class)->getMock();
+
         // create the subject to be tested
         $this->subject = new EeMediaSubject(
             $mockRegistryProcessor,
             $mockGenerator,
             new ArrayCollection(),
             $mockEmitter,
-            $mockProductMediaProcessor
+            $mockLoader
         );
 
         // mock the filesytem
