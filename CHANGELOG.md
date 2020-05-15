@@ -1,3 +1,13 @@
+# Version 22.0.1
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Make composer dependencies more generic
+
 # Version 22.0.0
 
 ## Bugfixes
