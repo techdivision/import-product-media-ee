@@ -20,8 +20,9 @@
 
 namespace TechDivision\Import\Product\Media\Ee\Observers;
 
-use TechDivision\Import\Product\Media\Observers\MediaGalleryObserver;
 use TechDivision\Import\Product\Media\Ee\Utils\MemberNames;
+use TechDivision\Import\Product\Media\Utils\EntityTypeCodes;
+use TechDivision\Import\Product\Media\Observers\MediaGalleryObserver;
 
 /**
  * Observer that provides extended mapping functionality to map a SKU to a row ID (EE Feature).
@@ -45,9 +46,12 @@ class EeMediaGalleryObserver extends MediaGalleryObserver
 
         // initialize and return the entity
         return $this->initializeEntity(
-            array(
-                MemberNames::VALUE_ID  => $this->valueId,
-                MemberNames::ROW_ID    => $this->parentId
+            $this->loadRawEntity(
+                EntityTypeCodes::CATALOG_PRODUCT_MEDIA_GALLERY_VALUE_TO_ENTITY,
+                array(
+                    MemberNames::VALUE_ID  => $this->valueId,
+                    MemberNames::ROW_ID    => $this->parentId
+                )
             )
         );
     }

@@ -51,22 +51,6 @@ class SqlStatementRepository extends \TechDivision\Import\Product\Media\Reposito
                FROM ${table:catalog_product_entity_media_gallery_value_to_entity}
               WHERE value_id = :value_id
                 AND row_id = :row_id',
-        SqlStatementKeys::CREATE_PRODUCT_MEDIA_GALLERY_VALUE =>
-            'INSERT
-               INTO ${table:catalog_product_entity_media_gallery_value}
-                    (${column-names:catalog_product_entity_media_gallery_value})
-             VALUES (${column-placeholders:catalog_product_entity_media_gallery_value})',
-        SqlStatementKeys::UPDATE_PRODUCT_MEDIA_GALLERY_VALUE =>
-            'UPDATE ${table:catalog_product_entity_media_gallery_value}
-                SET ${column-values:catalog_product_entity_media_gallery_value}
-              WHERE record_id = :record_id',
-        SqlStatementKeys::CREATE_PRODUCT_MEDIA_GALLERY_VALUE_TO_ENTITY =>
-            'INSERT
-               INTO ${table:catalog_product_entity_media_gallery_value_to_entity}
-                    (value_id,
-                     row_id)
-             VALUES (:value_id,
-                     :row_id)',
         SqlStatementKeys::PRODUCT_MEDIA_GALLERIES_BY_SKU =>
             'SELECT t3.*
                FROM ${table:catalog_product_entity} t1,

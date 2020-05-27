@@ -45,8 +45,13 @@ class EeMediaGalleryValueObserver extends MediaGalleryValueObserver
     protected function prepareAttributes()
     {
 
-        // load the product SKU and map it the entity ID
-        $parentId = $this->getValue(ColumnKeys::IMAGE_PARENT_SKU, null, array($this, 'mapParentSku'));
+
+        try {
+            // try to load the product SKU and map it the entity ID
+            $parentId = $this->getValue(ColumnKeys::IMAGE_PARENT_SKU, null, array($this, 'mapParentSku'));
+        } catch (\Exception $e) {
+            throw $this->wrapException(array(ColumnKeys::IMAGE_PARENT_SKU), $e);
+        }
 
         // load the store ID
         $storeId = $this->getRowStoreId(StoreViewCodes::ADMIN);
@@ -58,23 +63,18 @@ class EeMediaGalleryValueObserver extends MediaGalleryValueObserver
         $imageLabel = $this->getValue(ColumnKeys::IMAGE_LABEL);
 
         // load the position
-        $position = $this->getValue(ColumnKeys::IMAGE_POSITION);
-        if ($position == 0) {
-            $position = $this->raisePositionCounter();
-        }
-
-        // load the flag that decides whether or not an image should be hidden on product page
-        $hideFromProductPage = $this->getValue(ColumnKeys::HIDE_FROM_PRODUCT_PAGE);
+        $position = (int) $this->getValue(ColumnKeys::IMAGE_POSITION, 0);
 
         // prepare the media gallery value
         return $this->initializeEntity(
-            array(
-                MemberNames::VALUE_ID    => $valueId,
-                MemberNames::STORE_ID    => $storeId,
-                MemberNames::ROW_ID      => $parentId,
-                MemberNames::LABEL       => $imageLabel,
-                MemberNames::POSITION    => $position,
-                MemberNames::DISABLED    => $hideFromProductPage
+            $this->loadRawEntity(
+                array(
+                    MemberNames::VALUE_ID    => $valueId,
+                    MemberNames::STORE_ID    => $storeId,
+                    MemberNames::ROW_ID      => $parentId,
+                    MemberNames::LABEL       => $imageLabel,
+                    MemberNames::POSITION    => $position
+                )
             )
         );
     }

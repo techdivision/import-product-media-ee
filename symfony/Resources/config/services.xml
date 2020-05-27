@@ -41,15 +41,19 @@
 
         <service id="import_product_media_ee.observer.media.gallery" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryObserver">
             <argument type="service" id="import_product_media_ee.processor.product.media"/>
+            <argument type="service" id="import.observer.dynamic.attribute.loader"/>
         </service>
         <service id="import_product_media_ee.observer.media.gallery.update" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryUpdateObserver">
             <argument type="service" id="import_product_media_ee.processor.product.media"/>
+            <argument type="service" id="import.observer.dynamic.attribute.loader"/>
         </service>
         <service id="import_product_media_ee.observer.media.gallery.value" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryValueObserver">
             <argument type="service" id="import_product_media_ee.processor.product.media"/>
+            <argument type="service" id="import.observer.dynamic.attribute.loader"/>
         </service>
         <service id="import_product_media_ee.observer.media.gallery.value.update" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryValueUpdateObserver">
             <argument type="service" id="import_product_media_ee.processor.product.media"/>
+            <argument type="service" id="import.observer.dynamic.attribute.loader"/>
         </service>
 
         <!--
