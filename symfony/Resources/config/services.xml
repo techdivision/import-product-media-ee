@@ -6,10 +6,10 @@
     <services>
 
         <service id="import_product_media.repository.sql.statement" class="TechDivision\Import\Product\Media\Ee\Repositories\SqlStatementRepository">
-            <argument type="service" id="import_product_media.util.sql.compilers"/>
+            <argument type="service" id="import.util.sql.compilers"/>
         </service>
         <service id="import_product_media_ee.repository.sql.statement" class="TechDivision\Import\Product\Media\Ee\Repositories\SqlStatementRepository">
-            <argument type="service" id="import_product_media.util.sql.compilers"/>
+            <argument type="service" id="import.util.sql.compilers"/>
         </service>
         <service id="import_product_media_ee.repository.product.media.gallery.value" class="TechDivision\Import\Product\Media\Ee\Repositories\ProductMediaGalleryValueRepository">
             <argument type="service" id="connection"/>
@@ -42,18 +42,22 @@
         <service id="import_product_media_ee.observer.media.gallery" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryObserver">
             <argument type="service" id="import_product_media_ee.processor.product.media"/>
             <argument type="service" id="import.observer.dynamic.attribute.loader"/>
+            <argument type="service" id="import_product_media.entity.merger.composite.media.gallery"/>
         </service>
         <service id="import_product_media_ee.observer.media.gallery.update" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryUpdateObserver">
             <argument type="service" id="import_product_media_ee.processor.product.media"/>
             <argument type="service" id="import.observer.dynamic.attribute.loader"/>
+            <argument type="service" id="import_product_media.entity.merger.composite.media.gallery"/>
         </service>
         <service id="import_product_media_ee.observer.media.gallery.value" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryValueObserver">
             <argument type="service" id="import_product_media_ee.processor.product.media"/>
             <argument type="service" id="import.observer.dynamic.attribute.loader"/>
+            <argument type="service" id="import_product_media.entity.merger.composite.media.gallery.value"/>
         </service>
         <service id="import_product_media_ee.observer.media.gallery.value.update" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryValueUpdateObserver">
             <argument type="service" id="import_product_media_ee.processor.product.media"/>
             <argument type="service" id="import.observer.dynamic.attribute.loader"/>
+            <argument type="service" id="import_product_media.entity.merger.composite.media.gallery.value"/>
         </service>
 
         <!--
