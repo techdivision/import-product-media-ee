@@ -5,7 +5,7 @@
     "require": {
         "php": ">=7.1.0",
         "techdivision/import-product-ee": "23.*",
-        "techdivision/import-product-media": "23.*"
+        "techdivision/import-product-media": "24.*"
     },
     "require-dev": {
         "doctrine/dbal": "2.5.*",

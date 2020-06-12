@@ -1,3 +1,13 @@
+# Version 25.0.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Switch to latest techdivision/import-product-media 24.* version as dependency
+
 # Version 24.0.0
 
 ## Bugfixes
