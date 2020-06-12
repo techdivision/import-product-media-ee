@@ -29,6 +29,7 @@ use TechDivision\Import\ExecutionContextInterface;
 use TechDivision\Import\Configuration\PluginConfigurationInterface;
 use TechDivision\Import\Configuration\SubjectConfigurationInterface;
 use TechDivision\Import\Loaders\LoaderInterface;
+use TechDivision\Import\Utils\Mappings\MapperInterface;
 
 /**
  * Test class for the media subject implementation for th Magento 2 EE.
@@ -116,13 +117,18 @@ class EeMediaSubjectTest extends TestCase
         // create a mock loader instance
         $mockLoader = $this->getMockBuilder(LoaderInterface::class)->getMock();
 
+        // create a mock mapper instance
+        $mockMapper = $this->getMockBuilder(MapperInterface::class)->getMock();
+        $mockMapper->method('map')->willReturn(EntityTypeCodes::CATALOG_PRODUCT);
+
         // create the subject to be tested
         $this->subject = new EeMediaSubject(
             $mockRegistryProcessor,
             $mockGenerator,
             new ArrayCollection(),
             $mockEmitter,
-            $mockLoader
+            $mockLoader,
+            $mockMapper
         );
 
         // mock the filesytem

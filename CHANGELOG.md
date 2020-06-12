@@ -6,7 +6,7 @@
 
 ## Features
 
-* Switch to latest techdivision/import-product-media 24.* version as dependency
+* Switch to latest techdivision/import-product-ee 23.* and techdivision/import-product-media 24.* version as dependency
 
 # Version 24.0.0
 
