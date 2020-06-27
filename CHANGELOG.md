@@ -1,3 +1,13 @@
+# Version 27.0.0
+
+## Bugfixes
+
+* Switch to latest  techdivision/import-product-ee 25.* and techdivision/import-product-media 26.* version as dependency
+
+## Features
+
+* None
+
 # Version 26.0.0
 
 ## Bugfixes
