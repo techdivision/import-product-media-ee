@@ -20,15 +20,13 @@
 
 namespace TechDivision\Import\Product\Media\Ee\Services;
 
+use TechDivision\Import\Loaders\LoaderInterface;
+use TechDivision\Import\Actions\ActionInterface;
 use TechDivision\Import\Connection\ConnectionInterface;
 use TechDivision\Import\Product\Media\Services\ProductMediaProcessor;
 use TechDivision\Import\Product\Media\Repositories\ProductMediaGalleryRepositoryInterface;
 use TechDivision\Import\Product\Media\Ee\Repositories\ProductMediaGalleryValueRepositoryInterface;
 use TechDivision\Import\Product\Media\Ee\Repositories\ProductMediaGalleryValueToEntityRepositoryInterface;
-use TechDivision\Import\Product\Media\Actions\ProductMediaGalleryActionInterface;
-use TechDivision\Import\Product\Media\Actions\ProductMediaGalleryValueActionInterface;
-use TechDivision\Import\Product\Media\Actions\ProductMediaGalleryValueVideoActionInterface;
-use TechDivision\Import\Product\Media\Actions\ProductMediaGalleryValueToEntityActionInterface;
 
 /**
  * A processor implementation that provides media import functionality for the Magento 2 EE.
@@ -49,20 +47,20 @@ class EeProductMediaProcessor extends ProductMediaProcessor implements EeProduct
      * @param \TechDivision\Import\Product\Media\Repositories\ProductMediaGalleryRepositoryInterface                 $productMediaGalleryRepository              The product media gallery repository to use
      * @param \TechDivision\Import\Product\Media\Ee\Repositories\ProductMediaGalleryValueRepositoryInterface         $productMediaGalleryValueRepository         The product media gallery value repository to use
      * @param \TechDivision\Import\Product\Media\Ee\Repositories\ProductMediaGalleryValueToEntityRepositoryInterface $productMediaGalleryValueToEntityRepository The product media gallery value to entity repository to use
-     * @param \TechDivision\Import\Product\Media\Actions\ProductMediaGalleryActionInterface                          $productMediaGalleryAction                  The product media gallery action to use
-     * @param \TechDivision\Import\Product\Media\Actions\ProductMediaGalleryValueActionInterface                     $productMediaGalleryValueAction             The product media gallery value action to use
-     * @param \TechDivision\Import\Product\Media\Actions\ProductMediaGalleryValueToEntityActionInterface             $productMediaGalleryValueToEntityAction     The product media gallery value to entity action to use
-     * @param \TechDivision\Import\Product\Media\Actions\ProductMediaGalleryValueVideoActionInterface                $productMediaGalleryValueVideoAction        The product media gallery value video action to use
+     * @param \TechDivision\Import\Actions\ActionInterface                                                           $productMediaGalleryAction                  The product media gallery action to use
+     * @param \TechDivision\Import\Actions\ActionInterface                                                           $productMediaGalleryValueAction             The product media gallery value action to use
+     * @param \TechDivision\Import\Actions\ActionInterface                                                           $productMediaGalleryValueToEntityAction     The product media gallery value to entity action to use
+     * @param \TechDivision\Import\Loaders\LoaderInterface                                                           $rawEntityLoader                            The raw entity loader instance
      */
     public function __construct(
         ConnectionInterface $connection,
         ProductMediaGalleryRepositoryInterface $productMediaGalleryRepository,
         ProductMediaGalleryValueRepositoryInterface $productMediaGalleryValueRepository,
         ProductMediaGalleryValueToEntityRepositoryInterface $productMediaGalleryValueToEntityRepository,
-        ProductMediaGalleryActionInterface $productMediaGalleryAction,
-        ProductMediaGalleryValueActionInterface $productMediaGalleryValueAction,
-        ProductMediaGalleryValueToEntityActionInterface $productMediaGalleryValueToEntityAction,
-        ProductMediaGalleryValueVideoActionInterface $productMediaGalleryValueVideoAction
+        ActionInterface $productMediaGalleryAction,
+        ActionInterface $productMediaGalleryValueAction,
+        ActionInterface $productMediaGalleryValueToEntityAction,
+        LoaderInterface $rawEntityLoader
     ) {
         $this->setConnection($connection);
         $this->setProductMediaGalleryRepository($productMediaGalleryRepository);
@@ -71,7 +69,7 @@ class EeProductMediaProcessor extends ProductMediaProcessor implements EeProduct
         $this->setProductMediaGalleryAction($productMediaGalleryAction);
         $this->setProductMediaGalleryValueAction($productMediaGalleryValueAction);
         $this->setProductMediaGalleryValueToEntityAction($productMediaGalleryValueToEntityAction);
-        $this->setProductMediaGalleryValueVideoAction($productMediaGalleryValueVideoAction);
+        $this->setRawEntityLoader($rawEntityLoader);
     }
 
     /**

@@ -42,68 +42,37 @@ class SqlStatementRepository extends \TechDivision\Import\Product\Media\Reposito
     private $statements = array(
         SqlStatementKeys::PRODUCT_MEDIA_GALLERY_VALUE =>
             'SELECT *
-               FROM catalog_product_entity_media_gallery_value
+               FROM ${table:catalog_product_entity_media_gallery_value}
               WHERE value_id = :value_id
                 AND store_id = :store_id
                 AND row_id = :row_id',
         SqlStatementKeys::PRODUCT_MEDIA_GALLERY_VALUE_TO_ENTITY =>
             'SELECT *
-               FROM catalog_product_entity_media_gallery_value_to_entity
+               FROM ${table:catalog_product_entity_media_gallery_value_to_entity}
               WHERE value_id = :value_id
                 AND row_id = :row_id',
-        SqlStatementKeys::CREATE_PRODUCT_MEDIA_GALLERY_VALUE =>
-            'INSERT
-               INTO catalog_product_entity_media_gallery_value
-                    (value_id,
-                     store_id,
-                     row_id,
-                     label,
-                     position,
-                     disabled)
-             VALUES (:value_id,
-                     :store_id,
-                     :row_id,
-                     :label,
-                     :position,
-                     :disabled)',
-        SqlStatementKeys::UPDATE_PRODUCT_MEDIA_GALLERY_VALUE =>
-            'UPDATE catalog_product_entity_media_gallery_value
-                SET value_id = :value_id,
-                    store_id = :store_id,
-                    row_id = :row_id,
-                    label = :label,
-                    position = :position,
-                    disabled = :disabled
-              WHERE record_id = :record_id',
-        SqlStatementKeys::CREATE_PRODUCT_MEDIA_GALLERY_VALUE_TO_ENTITY =>
-            'INSERT
-               INTO catalog_product_entity_media_gallery_value_to_entity
-                    (value_id,
-                     row_id)
-             VALUES (:value_id,
-                     :row_id)',
         SqlStatementKeys::PRODUCT_MEDIA_GALLERIES_BY_SKU =>
             'SELECT t3.*
-               FROM catalog_product_entity t1,
-                    catalog_product_entity_media_gallery_value_to_entity t2,
-                    catalog_product_entity_media_gallery t3
+               FROM ${table:catalog_product_entity} t1,
+                    ${table:catalog_product_entity_media_gallery_value_to_entity} t2,
+                    ${table:catalog_product_entity_media_gallery} t3
               WHERE t1.sku = :sku
                 AND t2.row_id = t1.row_id
                 AND t3.value_id = t2.value_id'
     );
 
     /**
-     * Initialize the the SQL statements.
+     * Initializes the SQL statement repository with the primary key and table prefix utility.
+     *
+     * @param \IteratorAggregate<\TechDivision\Import\Utils\SqlCompilerInterface> $compilers The array with the compiler instances
      */
-    public function __construct()
+    public function __construct(\IteratorAggregate $compilers)
     {
 
-        // call the parent constructor
-        parent::__construct();
+        // pass primary key + table prefix utility to parent instance
+        parent::__construct($compilers);
 
-        // merge the class statements
-        foreach ($this->statements as $key => $statement) {
-            $this->preparedStatements[$key] = $statement;
-        }
+        // compile the SQL statements
+        $this->compile($this->statements);
     }
 }

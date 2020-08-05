@@ -45,28 +45,36 @@ class EeMediaGalleryValueObserver extends MediaGalleryValueObserver
     protected function prepareAttributes()
     {
 
-        // load the product SKU and map it the entity ID
-        $parentId = $this->getValue(ColumnKeys::IMAGE_PARENT_SKU, null, array($this, 'mapParentSku'));
+
+        try {
+            // try to load the product SKU and map it the entity ID
+            $parentId = $this->getValue(ColumnKeys::IMAGE_PARENT_SKU, null, array($this, 'mapParentSku'));
+        } catch (\Exception $e) {
+            throw $this->wrapException(array(ColumnKeys::IMAGE_PARENT_SKU), $e);
+        }
 
         // load the store ID
         $storeId = $this->getRowStoreId(StoreViewCodes::ADMIN);
 
-        // load the value ID and the position counter
+        // load the value ID
         $valueId = $this->getParentValueId();
-        $position = $this->raisePositionCounter();
 
         // load the image label
         $imageLabel = $this->getValue(ColumnKeys::IMAGE_LABEL);
 
+        // load the position
+        $position = (int) $this->getValue(ColumnKeys::IMAGE_POSITION, 0);
+
         // prepare the media gallery value
         return $this->initializeEntity(
-            array(
-                MemberNames::VALUE_ID    => $valueId,
-                MemberNames::STORE_ID    => $storeId,
-                MemberNames::ROW_ID      => $parentId,
-                MemberNames::LABEL       => $imageLabel,
-                MemberNames::POSITION    => $position,
-                MemberNames::DISABLED    => 0
+            $this->loadRawEntity(
+                array(
+                    MemberNames::VALUE_ID    => $valueId,
+                    MemberNames::STORE_ID    => $storeId,
+                    MemberNames::ROW_ID      => $parentId,
+                    MemberNames::LABEL       => $imageLabel,
+                    MemberNames::POSITION    => $position
+                )
             )
         );
     }

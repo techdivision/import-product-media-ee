@@ -20,9 +20,16 @@
 
 namespace TechDivision\Import\Product\Media\Ee\Subjects;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\TestCase;
+use TechDivision\Import\Utils\CacheKeys;
 use TechDivision\Import\Utils\RegistryKeys;
 use TechDivision\Import\Utils\EntityTypeCodes;
+use Doctrine\Common\Collections\ArrayCollection;
+use TechDivision\Import\ExecutionContextInterface;
+use TechDivision\Import\Configuration\PluginConfigurationInterface;
+use TechDivision\Import\Configuration\SubjectConfigurationInterface;
+use TechDivision\Import\Loaders\LoaderInterface;
+use TechDivision\Import\Utils\Mappings\MapperInterface;
 
 /**
  * Test class for the media subject implementation for th Magento 2 EE.
@@ -33,7 +40,7 @@ use TechDivision\Import\Utils\EntityTypeCodes;
  * @link      https://github.com/techdivision/import-product-media-ee
  * @link      http://www.techdivision.com
  */
-class EeMediaSubjectTest extends \PHPUnit_Framework_TestCase
+class EeMediaSubjectTest extends TestCase
 {
 
     /**
@@ -48,52 +55,53 @@ class EeMediaSubjectTest extends \PHPUnit_Framework_TestCase
      * This method is called before a test is executed.
      *
      * @return void
-     * @see \PHPUnit_Framework_TestCase::setUp()
+     * @see \PHPUnit\Framework\TestCase::setUp()
      */
     protected function setUp()
     {
 
-        // load the mock main configuration
-        $mockMainConfiguration = $this->getMockBuilder($subjectInterface = 'TechDivision\Import\ConfigurationInterface')
-                                      ->setMethods(get_class_methods($subjectInterface))
-                                      ->getMock();
+        // mock the execution context
+        $mockExecutionContext = $this->getMockBuilder(ExecutionContextInterface::class)
+            ->setMethods(get_class_methods(ExecutionContextInterface::class))
+            ->getMock();
+        $mockExecutionContext->expects($this->any())
+            ->method('getEntityTypeCode')
+            ->willReturn(EntityTypeCodes::CATALOG_PRODUCT);
 
-        // set the installation directory
-        $mockMainConfiguration->expects($this->once())
-                              ->method('getEntityTypeCode')
-                              ->willReturn('catalog_product');
+        // mock the plugin configuration
+        $mockPluginConfiguration = $this->getMockBuilder(PluginConfigurationInterface::class)
+            ->setMethods(get_class_methods(PluginConfigurationInterface::class))
+            ->getMock();
+        $mockPluginConfiguration->expects($this->any())
+            ->method('getExecutionContext')
+            ->willReturn($mockExecutionContext);
 
         // load the mock configuration
-        $mockConfiguration = $this->getMockBuilder($subjectInterface = 'TechDivision\Import\Configuration\SubjectConfigurationInterface')
-                                  ->setMethods(get_class_methods($subjectInterface))
-                                  ->getMock();
+        $mockConfiguration = $this->getMockBuilder(SubjectConfigurationInterface::class)
+            ->setMethods(get_class_methods(SubjectConfigurationInterface::class))
+            ->getMock();
         $mockConfiguration->expects($this->any())
-                          ->method('getConfiguration')
-                          ->willReturn($mockMainConfiguration);
+            ->method('getPluginConfiguration')
+            ->willReturn($mockPluginConfiguration);
         $mockConfiguration->expects($this->any())
-                           ->method('getCallbacks')
-                           ->willReturn(array());
+            ->method('getCallbacks')
+            ->willReturn(array());
         $mockConfiguration->expects($this->any())
-                           ->method('getObservers')
-                           ->willReturn(array());
+            ->method('getObservers')
+            ->willReturn(array());
         $mockConfiguration->expects($this->any())
-                           ->method('getHeaderMappings')
-                           ->willReturn(array());
+            ->method('getHeaderMappings')
+            ->willReturn(array());
         $mockConfiguration->expects($this->any())
-                           ->method('getImageTypes')
-                           ->willReturn(array());
+            ->method('getImageTypes')
+            ->willReturn(array());
         $mockConfiguration->expects($this->any())
-                          ->method('getFrontendInputCallbacks')
-                          ->willReturn(array());
+            ->method('getFrontendInputCallbacks')
+            ->willReturn(array());
 
         // create a mock registry processor
         $mockRegistryProcessor = $this->getMockBuilder('TechDivision\Import\Services\RegistryProcessorInterface')
             ->setMethods(get_class_methods('TechDivision\Import\Services\RegistryProcessorInterface'))
-            ->getMock();
-
-        // create a mock product media processor
-        $mockProductMediaProcessor = $this->getMockBuilder('TechDivision\Import\Product\Services\ProductProcessorInterface')
-            ->setMethods(get_class_methods('TechDivision\Import\Product\Services\ProductProcessorInterface'))
             ->getMock();
 
         // create a generator
@@ -106,13 +114,21 @@ class EeMediaSubjectTest extends \PHPUnit_Framework_TestCase
                             ->setMethods(\get_class_methods('League\Event\EmitterInterface'))
                             ->getMock();
 
+        // create a mock loader instance
+        $mockLoader = $this->getMockBuilder(LoaderInterface::class)->getMock();
+
+        // create a mock mapper instance
+        $mockMapper = $this->getMockBuilder(MapperInterface::class)->getMock();
+        $mockMapper->method('map')->willReturn(EntityTypeCodes::CATALOG_PRODUCT);
+
         // create the subject to be tested
         $this->subject = new EeMediaSubject(
             $mockRegistryProcessor,
             $mockGenerator,
             new ArrayCollection(),
             $mockEmitter,
-            $mockProductMediaProcessor
+            $mockLoader,
+            $mockMapper
         );
 
         // mock the filesytem
@@ -154,6 +170,7 @@ class EeMediaSubjectTest extends \PHPUnit_Framework_TestCase
                 RegistryKeys::ROOT_CATEGORIES => array(),
                 RegistryKeys::DEFAULT_STORE => array(),
                 RegistryKeys::CORE_CONFIG_DATA => array(),
+                RegistryKeys::ENTITY_TYPES => array(),
                 RegistryKeys::EAV_USER_DEFINED_ATTRIBUTES => array(
                     EntityTypeCodes::CATALOG_PRODUCT => array()
                 )
@@ -164,11 +181,11 @@ class EeMediaSubjectTest extends \PHPUnit_Framework_TestCase
         $this->subject->getRegistryProcessor()
                       ->expects($this->any())
                       ->method('getAttribute')
-                      ->with($serial = uniqid())
+                      ->with(CacheKeys::STATUS)
                       ->willReturn($status);
 
         // inject and set-up the processor
-        $this->subject->setUp($serial);
+        $this->subject->setUp(uniqid());
 
         // test the mapSkuToRowId() method
         $this->assertSame($rowId, $this->subject->mapSkuToRowId($sku));

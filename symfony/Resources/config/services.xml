@@ -5,8 +5,12 @@
 
     <services>
 
-        <service id="import_product_media.repository.sql.statement" class="TechDivision\Import\Product\Media\Ee\Repositories\SqlStatementRepository"/>
-        <service id="import_product_media_ee.repository.sql.statement" class="TechDivision\Import\Product\Media\Ee\Repositories\SqlStatementRepository"/>
+        <service id="import_product_media.repository.sql.statement" class="TechDivision\Import\Product\Media\Ee\Repositories\SqlStatementRepository">
+            <argument type="service" id="import.util.sql.compilers"/>
+        </service>
+        <service id="import_product_media_ee.repository.sql.statement" class="TechDivision\Import\Product\Media\Ee\Repositories\SqlStatementRepository">
+            <argument type="service" id="import.util.sql.compilers"/>
+        </service>
         <service id="import_product_media_ee.repository.product.media.gallery.value" class="TechDivision\Import\Product\Media\Ee\Repositories\ProductMediaGalleryValueRepository">
             <argument type="service" id="connection"/>
             <argument type="service" id="import_product_media_ee.repository.sql.statement"/>
@@ -24,20 +28,66 @@
             <argument type="service" id="import_product_media.action.product.media.gallery"/>
             <argument type="service" id="import_product_media.action.product.media.gallery.value"/>
             <argument type="service" id="import_product_media.action.product.media.gallery.value.to.entity"/>
-            <argument type="service" id="import_product_media.action.product.media.gallery.value.video"/>
+            <argument type="service" id="import_product_media.loader.raw.entity"/>
         </service>
 
-        <service id="import_product_media_ee.media.gallery" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryObserver">
+        <!--
+         | DEPRECATED: These aliases are only for backwards compatibility, they will be removed with the next major release
+         |-->
+        <service id="import_product_media_ee.media.gallery" alias="import_product_media_ee.observer.media.gallery"/>
+        <service id="import_product_media_ee.media.gallery.update" alias="import_product_media_ee.observer.media.gallery.update"/>
+        <service id="import_product_media_ee.media.gallery.value" alias="import_product_media_ee.observer.media.gallery.value"/>
+        <service id="import_product_media_ee.media.gallery.value.update" alias="import_product_media_ee.observer.media.gallery.value.update"/>
+
+        <service id="import_product_media_ee.observer.media.gallery" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryObserver">
             <argument type="service" id="import_product_media_ee.processor.product.media"/>
+            <argument type="service" id="import.observer.dynamic.attribute.loader"/>
+            <argument type="service" id="import_product_media.entity.merger.composite.media.gallery"/>
         </service>
-        <service id="import_product_media_ee.media.gallery.update" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryUpdateObserver">
+        <service id="import_product_media_ee.observer.media.gallery.update" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryUpdateObserver">
             <argument type="service" id="import_product_media_ee.processor.product.media"/>
+            <argument type="service" id="import.observer.dynamic.attribute.loader"/>
+            <argument type="service" id="import_product_media.entity.merger.composite.media.gallery"/>
         </service>
-        <service id="import_product_media_ee.media.gallery.value" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryValueObserver">
+        <service id="import_product_media_ee.observer.media.gallery.value" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryValueObserver">
             <argument type="service" id="import_product_media_ee.processor.product.media"/>
+            <argument type="service" id="import.observer.dynamic.attribute.loader"/>
+            <argument type="service" id="import_product_media.entity.merger.composite.media.gallery.value"/>
         </service>
-        <service id="import_product_media_ee.media.gallery.value.update" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryValueUpdateObserver">
+        <service id="import_product_media_ee.observer.media.gallery.value.update" class="TechDivision\Import\Product\Media\Ee\Observers\EeMediaGalleryValueUpdateObserver">
             <argument type="service" id="import_product_media_ee.processor.product.media"/>
+            <argument type="service" id="import.observer.dynamic.attribute.loader"/>
+            <argument type="service" id="import_product_media.entity.merger.composite.media.gallery.value"/>
+        </service>
+
+        <!--
+         | The DI configuration for the composite observers of the replace operation.
+         |-->
+        <service id="import_product_media_ee.observer.composite.replace" class="TechDivision\Import\Observers\GenericCompositeObserver">
+            <call method="addObserver">
+                <argument id="import.observer.attribute.set" type="service"/>
+            </call>
+            <call method="addObserver">
+                <argument id="import_product_media_ee.media.gallery" type="service"/>
+            </call>
+            <call method="addObserver">
+                <argument id="import_product_media_ee.media.gallery.value" type="service"/>
+            </call>
+        </service>
+
+        <!--
+         | The DI configuration for the composite observers of the add-update operation.
+         |-->
+        <service id="import_product_media_ee.observer.composite.add_update" class="TechDivision\Import\Observers\GenericCompositeObserver">
+            <call method="addObserver">
+                <argument id="import.observer.attribute.set" type="service"/>
+            </call>
+            <call method="addObserver">
+                <argument id="import_product_media_ee.media.gallery.update" type="service"/>
+            </call>
+            <call method="addObserver">
+                <argument id="import_product_media_ee.media.gallery.value.update" type="service"/>
+            </call>
         </service>
 
         <service id="import_product_media_ee.subject.media" class="TechDivision\Import\Product\Media\Ee\Subjects\EeMediaSubject" shared="false">
@@ -45,6 +95,8 @@
             <argument type="service" id="import.generator.core.config.data.uid"/>
             <argument type="service" id="loggers"/>
             <argument type="service" id="import.events.emitter"/>
+            <argument type="service" id="import_product.loader.media.roles"/>
+            <argument type="service" id="import_product.utils.entity.type.code.mapping"/>
         </service>
 
     </services>

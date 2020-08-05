@@ -21,7 +21,10 @@
 namespace TechDivision\Import\Product\Media\Ee\Subjects;
 
 use TechDivision\Import\Utils\RegistryKeys;
-use TechDivision\Import\Product\Media\Subjects\MediaSubject;
+use TechDivision\Import\Subjects\FileUploadTrait;
+use TechDivision\Import\Subjects\FileUploadSubjectInterface;
+use TechDivision\Import\Product\Ee\Subjects\EeBunchSubject;
+use TechDivision\Import\Product\Media\Subjects\MediaSubjectTrait;
 
 /**
  * A subject that handles the process to import product media.
@@ -32,15 +35,22 @@ use TechDivision\Import\Product\Media\Subjects\MediaSubject;
  * @link      https://github.com/techdivision/import-product-media-ee
  * @link      http://www.techdivision.com
  */
-class EeMediaSubject extends MediaSubject
+class EeMediaSubject extends EeBunchSubject implements FileUploadSubjectInterface
 {
 
     /**
-     * The mapping for the SKUs to the created entity IDs.
+     * The trait that provides file upload functionality.
      *
-     * @var array
+     * @var \TechDivision\Import\Subjects\FileUploadTrait
      */
-    protected $skuRowIdMapping = array();
+    use FileUploadTrait;
+
+    /**
+     * The trait that provides media import functionality.
+     *
+     * @var \TechDivision\Import\Media\Subjects\MediaSubjectTrait
+     */
+    use MediaSubjectTrait;
 
     /**
      * Intializes the previously loaded global data for exactly one variants.
@@ -59,29 +69,10 @@ class EeMediaSubject extends MediaSubject
         $registryProcessor = $this->getRegistryProcessor();
 
         // load the status of the actual import process
-        $status = $registryProcessor->getAttribute($serial);
+        $status = $registryProcessor->getAttribute(RegistryKeys::STATUS);
 
-        // load the attribute set we've prepared intially
+        // load the SKU => row/entity ID mapping
         $this->skuRowIdMapping = $status[RegistryKeys::SKU_ROW_ID_MAPPING];
-    }
-
-    /**
-     * Return the row ID for the passed SKU.
-     *
-     * @param string $sku The SKU to return the row ID for
-     *
-     * @return integer The mapped row ID
-     * @throws \Exception Is thrown if the SKU is not mapped yet
-     */
-    public function mapSkuToRowId($sku)
-    {
-
-        // query weather or not the SKU has been mapped
-        if (isset($this->skuRowIdMapping[$sku])) {
-            return $this->skuRowIdMapping[$sku];
-        }
-
-        // throw an exception if the SKU has not been mapped yet
-        throw new \Exception(sprintf('Found not mapped SKU %s', $sku));
+        $this->skuEntityIdMapping = $status[RegistryKeys::SKU_ENTITY_ID_MAPPING];
     }
 }
