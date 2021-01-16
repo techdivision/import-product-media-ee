@@ -21,8 +21,8 @@
 namespace TechDivision\Import\Product\Media\Ee\Services;
 
 use TechDivision\Import\Loaders\LoaderInterface;
-use TechDivision\Import\Actions\ActionInterface;
-use TechDivision\Import\Connection\ConnectionInterface;
+use TechDivision\Import\Dbal\Actions\ActionInterface;
+use TechDivision\Import\Dbal\Connection\ConnectionInterface;
 use TechDivision\Import\Product\Media\Services\ProductMediaProcessor;
 use TechDivision\Import\Product\Media\Repositories\ProductMediaGalleryRepositoryInterface;
 use TechDivision\Import\Product\Media\Ee\Repositories\ProductMediaGalleryValueRepositoryInterface;
@@ -43,13 +43,13 @@ class EeProductMediaProcessor extends ProductMediaProcessor implements EeProduct
     /**
      * Initialize the processor with the necessary assembler and repository instances.
      *
-     * @param \TechDivision\Import\Connection\ConnectionInterface                                                    $connection                                 The connection to use
+     * @param \TechDivision\Import\Dbal\Connection\ConnectionInterface                                               $connection                                 The connection to use
      * @param \TechDivision\Import\Product\Media\Repositories\ProductMediaGalleryRepositoryInterface                 $productMediaGalleryRepository              The product media gallery repository to use
      * @param \TechDivision\Import\Product\Media\Ee\Repositories\ProductMediaGalleryValueRepositoryInterface         $productMediaGalleryValueRepository         The product media gallery value repository to use
      * @param \TechDivision\Import\Product\Media\Ee\Repositories\ProductMediaGalleryValueToEntityRepositoryInterface $productMediaGalleryValueToEntityRepository The product media gallery value to entity repository to use
-     * @param \TechDivision\Import\Actions\ActionInterface                                                           $productMediaGalleryAction                  The product media gallery action to use
-     * @param \TechDivision\Import\Actions\ActionInterface                                                           $productMediaGalleryValueAction             The product media gallery value action to use
-     * @param \TechDivision\Import\Actions\ActionInterface                                                           $productMediaGalleryValueToEntityAction     The product media gallery value to entity action to use
+     * @param \TechDivision\Import\Dbal\Actions\ActionInterface                                                      $productMediaGalleryAction                  The product media gallery action to use
+     * @param \TechDivision\Import\Dbal\Actions\ActionInterface                                                      $productMediaGalleryValueAction             The product media gallery value action to use
+     * @param \TechDivision\Import\Dbal\Actions\ActionInterface                                                      $productMediaGalleryValueToEntityAction     The product media gallery value to entity action to use
      * @param \TechDivision\Import\Loaders\LoaderInterface                                                           $rawEntityLoader                            The raw entity loader instance
      */
     public function __construct(
