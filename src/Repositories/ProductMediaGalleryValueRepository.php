@@ -36,23 +36,14 @@ class ProductMediaGalleryValueRepository extends \TechDivision\Import\Product\Me
 {
 
     /**
-     * The prepared statement to load an existing product media gallery value entity.
-     *
-     * @var \PDOStatement
-     */
-    protected $productMediaGalleryStmt;
-
-    /**
      * Initializes the repository's prepared statements.
      *
      * @return void
      */
     public function init()
     {
-
-        // initialize the prepared statements
-        $this->productMediaGalleryValueStmt =
-            $this->getConnection()->prepare($this->loadStatement(SqlStatementKeys::PRODUCT_MEDIA_GALLERY_VALUE));
+        $this->addFinder($this->finderFactory->createFinder($this, SqlStatementKeys::PRODUCT_MEDIA_GALLERY_VALUE));
+        $this->addFinder($this->finderFactory->createFinder($this, SqlStatementKeys::PRODUCT_MEDIA_GALLERY_VALUES));
     }
 
     /**
@@ -74,8 +65,7 @@ class ProductMediaGalleryValueRepository extends \TechDivision\Import\Product\Me
             MemberNames::ROW_ID    => $rowId
         );
 
-        // load and return the prodcut media gallery value with the passed value/store/parent ID
-        $this->productMediaGalleryValueStmt->execute($params);
-        return $this->productMediaGalleryValueStmt->fetch(\PDO::FETCH_ASSOC);
+        // load and return the product media gallery value with the passed value/store/parent ID
+        return $this->getFinder(SqlStatementKeys::PRODUCT_MEDIA_GALLERY_VALUE)->find($params);
     }
 }

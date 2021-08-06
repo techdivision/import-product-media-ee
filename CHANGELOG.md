@@ -1,4 +1,4 @@
-# Version 27.0.0
+# Version 28.0.0
 
 ## Bugfixes
 
@@ -6,7 +6,7 @@
 
 ## Features
 
-* None
+* Prepare optimze performance cache
 
 # Version 26.0.0
 

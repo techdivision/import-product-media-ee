@@ -14,6 +14,7 @@
         <service id="import_product_media_ee.repository.product.media.gallery.value" class="TechDivision\Import\Product\Media\Ee\Repositories\ProductMediaGalleryValueRepository">
             <argument type="service" id="connection"/>
             <argument type="service" id="import_product_media_ee.repository.sql.statement"/>
+            <argument type="service" id="import.repository.finder.factory.configurable"/>
         </service>
         <service id="import_product_media_ee.repository.product.media.gallery.value.to.entity" class="TechDivision\Import\Product\Media\Ee\Repositories\ProductMediaGalleryValueToEntityRepository">
             <argument type="service" id="connection"/>
