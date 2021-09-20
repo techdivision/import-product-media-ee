@@ -51,7 +51,7 @@ class EeMediaSubjectTest extends TestCase
      * @return void
      * @see \PHPUnit\Framework\TestCase::setUp()
      */
-    protected function setUp()
+    protected function setUp(): void
     {
 
         // mock the execution context
