@@ -6,6 +6,7 @@
 
 ## Features
 
+* Refactoring deprecated classes. see https://github.com/techdivision/import-cli-simple/blob/master/UPGRADE-4.0.0.md
 * Prepare optimze performance cache
 
 # Version 26.0.0
