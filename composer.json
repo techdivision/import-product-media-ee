@@ -4,8 +4,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "techdivision/import-product-ee": "^27.0.0",
-        "techdivision/import-product-media": "^28.0.0"
+        "techdivision/import-product-ee": "^27.3",
+        "techdivision/import-product-media": "^28.2"
     },
     "require-dev": {
         "doctrine/dbal": "^4.0.4",
