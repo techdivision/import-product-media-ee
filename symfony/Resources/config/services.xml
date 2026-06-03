@@ -33,6 +33,13 @@
         </service>
 
         <!--
+         | Override the base media gallery clean up observer with the EE specific implementation, that removes the product specific assignment by row ID instead of entity ID
+         |-->
+        <service id="import_product_media.observer.clean.up.media.gallery" class="TechDivision\Import\Product\Media\Ee\Observers\EeCleanUpMediaGalleryObserver">
+            <argument type="service" id="import_product_media_ee.processor.product.media" />
+        </service>
+
+        <!--
          | DEPRECATED: These aliases are only for backwards compatibility, they will be removed with the next major release
          |-->
         <service id="import_product_media_ee.media.gallery" alias="import_product_media_ee.observer.media.gallery"/>

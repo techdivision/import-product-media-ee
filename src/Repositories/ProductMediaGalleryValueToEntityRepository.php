@@ -43,6 +43,8 @@ class ProductMediaGalleryValueToEntityRepository extends \TechDivision\Import\Pr
      */
     public function init()
     {
+        // initialize the parent's prepared statements (e.g. the count statement)
+        parent::init();
 
         // initialize the prepared statements
         $this->productMediaGalleryValueToEntityStmt =
