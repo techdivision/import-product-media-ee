@@ -45,8 +45,13 @@ class SqlStatementRepository extends \TechDivision\Import\Product\Media\Reposito
                FROM ${table:catalog_product_entity_media_gallery_value_to_entity}
               WHERE value_id = :value_id
                 AND row_id = :row_id',
+        SqlStatementKeys::DELETE_PRODUCT_MEDIA_GALLERY_VALUE_TO_ENTITY =>
+            'DELETE
+               FROM ${table:catalog_product_entity_media_gallery_value_to_entity}
+              WHERE value_id = :value_id
+                AND row_id = :row_id',
         SqlStatementKeys::PRODUCT_MEDIA_GALLERIES_BY_SKU =>
-            'SELECT t3.*
+            'SELECT t3.*, t2.row_id
                FROM ${table:catalog_product_entity} t1,
                     ${table:catalog_product_entity_media_gallery_value_to_entity} t2,
                     ${table:catalog_product_entity_media_gallery} t3

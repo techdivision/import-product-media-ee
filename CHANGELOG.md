@@ -1,3 +1,10 @@
+# Version 29.2.0
+
+## Bugfixes
+
+### Fix product media gallery cleanup logic (HYDAC-6739)
+* Implement entity-specific product media gallery deletion and cleanup logic
+
 # Version 29.1.0
 
 ## Features
