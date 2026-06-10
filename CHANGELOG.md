@@ -1,3 +1,10 @@
+# Version 29.1.1
+
+## Bugfixes
+
+### Fix product media gallery cleanup logic
+* Implement entity-specific product media gallery deletion and cleanup logic
+
 # Version 29.1.0
 
 ## Features
